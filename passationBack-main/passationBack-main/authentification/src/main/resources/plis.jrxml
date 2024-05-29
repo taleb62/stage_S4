@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reçu de dépôt de plis" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="248c1a9d-89d5-4ede-89f1-3bcbc7e00937">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_passation"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="158"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="836"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT l.non_autorite_contractante,p.idplis,a.objet_depense, p.date_reception FROM plis p join lettre l on p.id_lettre=l.id join dossier d on p.id_dossier=d.id join plan_anuell_achat a on a.id=d.id_paa WHERE idplis=$P{id}]]>
+	</queryString>
+	<field name="non_autorite_contractante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="non_autorite_contractante"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_autorite_contractante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="idplis" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idplis"/>
+		<property name="com.jaspersoft.studio.field.label" value="idplis"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plis"/>
+	</field>
+	<field name="objet_depense" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="objet_depense"/>
+		<property name="com.jaspersoft.studio.field.label" value="objet_depense"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="date_reception" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="date_reception"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_reception"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plis"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="559" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="73" width="554" height="445" uuid="9646b1e0-c336-4eac-b386-50f06acd1d3c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="150" y="83" width="204" height="30" uuid="cdb9a65a-42ce-4765-93fd-765533c4a9e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[reçu de dépôt de plis]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="113" width="204" height="20" uuid="1ede1487-80e1-4f67-8ecc-36471fa414ac"/>
+				<textElement textAlignment="Center" rotation="None">
+					<font size="10" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reçu N°"+$F{idplis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="143" width="534" height="30" uuid="685b7706-6f10-4d0e-a6ff-552b7c97d715"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Intitulé et objet de la Consultation des candidats ou la Sélection de Consultants]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="183" width="534" height="80" uuid="08e9431f-39bd-4acb-846c-774919135b0c"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="1.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Je soussigné "+"........................................."+".chargé du secrétariat de "+$F{non_autorite_contractante}+ ", atteste avoir reçu le pli enregistré  sous le N  "+$F{idplis}+", déposé dans le cadre de la Consultation en objet à  "+$F{objet_depense} +":      "+$F{date_reception} + "."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="263" width="534" height="97" uuid="ec5f353a-705a-48d2-bc6c-168ebfc5d066"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[En foi de quoi le présent reçu a été délivré au porteur du pli ou classé au secrétariat pour servir et valoir ce que de droit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="390" width="201" height="21" uuid="1bd27458-a0f7-4d95-b0e4-934980adb7d3"/>
+				<text><![CDATA[Signature du Responsable du Secrétariat]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

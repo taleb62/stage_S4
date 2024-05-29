@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Demande d&apos;initiation d&apos;une procédure" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6bd7e88f-0325-4649-9d22-cb5d80d4fd75">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_passation"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select * from db_passation.plan_anuell_achat p , db_passation.mod_passation m where p.id=$P{id} and  p.id=m.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="date_previ_attribution" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_previ_attribution"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_previ_attribution"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="date_previ_lancement" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_previ_lancement"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_previ_lancement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="fkid_mod_passation" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="fkid_mod_passation"/>
+		<property name="com.jaspersoft.studio.field.label" value="fkid_mod_passation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="fkid_type_marche" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="fkid_type_marche"/>
+		<property name="com.jaspersoft.studio.field.label" value="fkid_type_marche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="inpu_budgetaire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="inpu_budgetaire"/>
+		<property name="com.jaspersoft.studio.field.label" value="inpu_budgetaire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="mnt_estimatif" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="mnt_estimatif"/>
+		<property name="com.jaspersoft.studio.field.label" value="mnt_estimatif"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="objet_depense" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="objet_depense"/>
+		<property name="com.jaspersoft.studio.field.label" value="objet_depense"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="destinataire" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="destinataire"/>
+		<property name="com.jaspersoft.studio.field.label" value="destinataire"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="enprocedure" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="enprocedure"/>
+		<property name="com.jaspersoft.studio.field.label" value="enprocedure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+		<fieldDescription><![CDATA[etat: 1 si le PAA est en procedure 0 si non]]></fieldDescription>
+	</field>
+	<field name="origine" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="origine"/>
+		<property name="com.jaspersoft.studio.field.label" value="origine"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<field name="date_cration_procedure" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date_cration_procedure"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_cration_procedure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+<!--	<field name="COLUMN_13" class="java.lang.Integer">-->
+<!--		<property name="com.jaspersoft.studio.field.name" value="id"/>-->
+<!--		<property name="com.jaspersoft.studio.field.label" value="id"/>-->
+<!--		<property name="com.jaspersoft.studio.field.tree.path" value="mod_passation"/>-->
+<!--	</field>-->
+	<field name="mode_passation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="mode_passation"/>
+		<property name="com.jaspersoft.studio.field.label" value="mode_passation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="mod_passation"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="697" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="90" width="550" height="607" uuid="56c41b5a-76f6-432b-8412-328a4041ef5e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="30" y="100" width="100" height="20" uuid="e5bb7561-e83a-492c-b8a1-ad627c602477"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Origine :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="100" width="400" height="20" uuid="be43f6a2-d467-446e-8008-6d84e207991c"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="130" width="100" height="20" uuid="8b2311cc-0eba-4d9a-8660-d4abe17ba92e"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destinataire :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="160" width="230" height="20" uuid="66193472-7d44-491f-947c-bc6c90c763e1"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descriptif sommaire du besoin á satisfaire :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="250" width="275" height="20" uuid="34bdbed3-b9b5-4560-9a3d-d7b9370444e1"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="180" width="514" height="60" uuid="2521b047-c2eb-4550-b352-396875f0b09a"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="250" width="230" height="20" uuid="71ca7a37-b4bc-4747-9624-2aad6bbaa7f9"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Délai estimé suivant la programmation :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="280" width="230" height="20" uuid="00ac7234-765b-4ce1-bb91-ac11daf505b1"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Source de financement :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="280" width="275" height="20" uuid="70587365-4532-43e5-832f-c97d92bbafb7"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="310" width="400" height="20" uuid="64b7f30c-fc13-47d9-ba11-07ca28268741"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Confirmation de l'inscription de la dépense dans le Plan Annuel des Achats:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="430" width="170" height="20" uuid="82ffecee-664c-4de7-8cf1-a1cb8cf519f7"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Montant de l'enveloppe allouée:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="430" width="330" height="20" uuid="51b13634-9125-4963-8ad0-f9a628c3bcb5"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="470" width="280" height="20" uuid="e203d24a-cbf9-4375-a635-bb688718c1bf"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[procédure proposée / approuvée par l'ordonnateur :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="590" width="100" height="20" uuid="8aaae0c1-f5be-407c-a4a4-bd1165f23905"/>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Autres mentions :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="610" width="514" height="70" uuid="0ff527dc-8e7c-4077-a2c4-71d6ea778d7c"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="490" width="514" height="90" uuid="80a259ab-169f-49ed-a350-668e2c07f8e4"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="330" width="514" height="90" uuid="cc535a6b-b59e-498c-a605-7d5ddb36e830"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.24313726)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="130" width="400" height="20" uuid="02f492e9-1d7d-465d-841c-0f4fbb6ad100"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.24313726)"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.22745098)"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.22745098)"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.22745098)"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="rgba(0, 0, 0, 0.22745098)"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="250" y="100" width="100" height="20" uuid="30e4f4e0-0726-4fa7-911c-aad68f8707f3"/>
+				<textFieldExpression><![CDATA[$F{origine}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="52" width="550" height="38" backcolor="rgba(237, 250, 242, 0.4509804)" uuid="02c6b40f-f959-4233-920a-9e61f70ddb6c">
+					<property name="com.jaspersoft.studio.element.name">
+						<![CDATA[Demande d'initiation d'une procédure]]>
+					</property>
+				</reportElement>
+				<box padding="0">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Demande d'initiation d'une procédure]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="250" y="130" width="100" height="20" uuid="a5c010ac-a9e1-42d0-93b9-84953fdee69b"/>
+				<textFieldExpression><![CDATA[$F{destinataire}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="180" width="100" height="30" uuid="19830a11-530f-4af9-9439-e8d6781c49c3"/>
+				<textFieldExpression><![CDATA[$F{objet_depense}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="255" width="100" height="15" uuid="eb6f081c-ac11-4497-943c-5b8bea803a28"/>
+				<textFieldExpression><![CDATA[$F{date_previ_lancement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="253" width="100" height="15" uuid="b81d24e8-9ed2-4f9a-b3f9-1e8a84762331"/>
+				<textFieldExpression><![CDATA[$F{date_previ_attribution}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="282" width="100" height="16" uuid="130f84ba-9f70-48c8-845a-2851bf52832e"/>
+				<textFieldExpression><![CDATA[$F{inpu_budgetaire}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="430" width="100" height="20" uuid="f6fc2de7-880c-45dd-af3f-88f1c49ed7cd"/>
+				<textFieldExpression><![CDATA[$F{mnt_estimatif}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="500" width="430" height="30" uuid="5ea3e453-8798-44d4-9bd6-9f1ca9f48926"/>
+				<textFieldExpression><![CDATA[$F{mode_passation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

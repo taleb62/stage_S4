@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lettres" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9f08bfd-939b-4197-91be-e4c44cc17228">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="db_passation"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="367"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="628"/>
+	<parameter name="id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select l.*,d.reference,p.objet_depense from lettre l INNER JOIN dossier d ON l.id_dossier=d.id INNER JOIN plan_anuell_achat p ON d.id_paa=p.id where l.id = $P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="id_dossier" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_dossier"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_dossier"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="lieu_overture_plis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lieu_overture_plis"/>
+		<property name="com.jaspersoft.studio.field.label" value="lieu_overture_plis"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="date_anterieur_depot" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date_anterieur_depot"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_anterieur_depot"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="date_limite_depot" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date_limite_depot"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_limite_depot"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="date_overture_plis" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="date_overture_plis"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_overture_plis"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="fk_iduser" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="fk_iduser"/>
+		<property name="com.jaspersoft.studio.field.label" value="fk_iduser"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="nom_fournissuer" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom_fournissuer"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom_fournissuer"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="non_autorite_contractante" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="non_autorite_contractante"/>
+		<property name="com.jaspersoft.studio.field.label" value="non_autorite_contractante"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lettre"/>
+	</field>
+	<field name="reference" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reference"/>
+		<property name="com.jaspersoft.studio.field.label" value="reference"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dossier"/>
+	</field>
+	<field name="objet_depense" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="objet_depense"/>
+		<property name="com.jaspersoft.studio.field.label" value="objet_depense"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="plan_anuell_achat"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="776" splitType="Stretch">
+			<staticText>
+				<reportElement x="-5" y="111" width="550" height="30" uuid="004e0c27-5905-4df7-ad9a-de830960e897"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[A Madame/ Monsieur  :  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="329" y="113" width="209" height="20" uuid="826af540-4652-4380-80a8-23f96f0f87de"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["  " +$F{nom_fournissuer}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="185" width="130" height="19" uuid="617058f7-7b0d-4c4a-b4ba-77f289092560"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[L’ordonnateur du budget de ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="185" width="180" height="19" uuid="9f4e3388-8ed5-43fc-b322-abc7cbfb8a2a"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{non_autorite_contractante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="204" width="90" height="17" uuid="a2e40591-e31a-42c4-80a2-f599e9d9948c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{reference}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="221" width="180" height="19" uuid="f889dff0-22b0-418e-a4e5-70c245544331"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{objet_depense}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="185" width="240" height="19" uuid="d2277e49-ec08-40dd-b794-fb2679427897"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[agissant au nom et pour le compte de celle-ci , vous]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="204" width="340" height="17" uuid="00cf59c2-69ac-4428-a5e6-0580067308f5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[adresse le présent Dossier de Consultation des candidats ci-après « ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="204" width="120" height="17" uuid="5bd71b3c-0286-4f68-9550-e0df313aadbe"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[», en vue de la livraison ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="221" width="190" height="19" uuid="bda80f92-1be6-4003-b38e-586a334b8fe0"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[de fournitures ou la réalisation de travaux ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="221" width="180" height="19" uuid="f554ec67-7ac0-4f70-84bb-2f9f6c4b685d"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[ , tels que spécifiés et quantifiées dans]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="240" width="550" height="17" uuid="bc60e6f0-35dc-418d-8584-4b03310d3904"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[le cadre du Devis Descriptif et Quantitatif figurant dans la troisième pièce du Dossier.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="40" height="19" uuid="84379e2a-cd03-4e84-beb9-3c0ae2c33bd1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Objet : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="151" width="320" height="19" uuid="be7e854f-5ca7-455b-853f-deccfbc865fe"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Consultation des candidats]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="261" width="550" height="40" uuid="777e0f44-91fa-4e06-8981-25cf24337a8b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[1.  Vous êtes prié dès réception de la présente lettre, de confirmer votre intention de soumissionner ou de ne pas soumissionner à la présente Consultation des candidats,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="301" width="550" height="50" uuid="c683769f-75f9-4792-a8a4-8338f4918d88"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[2.  En cas de confirmation, vous êtes prié de présenter votre offre technique et financière en remplissant les formulaires de soumission et de DDQE  figurant au Dossier complétés par les autres éléments constitutifs de votre offre   requis dans la pièce n° 2en deux exemplaires (un original et une copie), et en déposant l’offre ainsi constituée sous plis fermé au ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="351" width="310" height="20" uuid="81bf251d-4a3c-4611-9093-17af09fae327"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[Secrétariat de (nom de l’Autorité Contractante), au plus tard le :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="310" y="351" width="210" height="20" uuid="0d42f719-fbd4-4081-b6a4-40d23cb84840"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_limite_depot}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="421" width="550" height="40" uuid="0ade1d15-b565-4aa0-9ab5-accc9d1b2989"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[4.  Les plis seront ouverts en séance publique de la Commission ad ’hoc le (indiquer la date, l’heure et le lieu). Les représentants des soumissionnaires qui souhaitent assister à la séance d’ouverture y sont invités.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="461" width="550" height="40" uuid="0ade14d2-a95c-4345-9398-cd843b973e4c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[5.  Les candidats qui souhaitent obtenir des éclaircissements sur ce dossier, peuvent en saisir par écrit l’Autorité Contractante au plus tard le (indiquer une date antérieure d’au moins deux (02) jours ouvrables à la date limite fixée pour le dépôt des offres).]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="501" width="550" height="70" uuid="3cad97b1-e8d3-49b2-a410-86491b494c02"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[6.  L’évaluation des offres sera faite à huis clos par la Commission ad ’hoc sur la base des critères ci-après :
+     i  -    Conformité de l’offre aux exigences du dossier,
+     ii -    Expérience du soumissionnaire dans l’exécution de commandes similaires,
+   iii  -   Montant de l’offre, pour les soumissionnaires qualifiés, dont l’offre technique conforme aux exigences du
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="567" width="550" height="20" uuid="d92380a8-0692-47d6-bd1c-b464e45b1620"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[             dossier aura été jugée satisfaisante.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="588" width="550" height="13" uuid="ea8bbeb7-39e2-4f4a-8bc0-4230ab2c9456"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[7.  L’Ordonnateur, ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="605" width="550" height="40" uuid="f4f48807-9c3f-4bbe-8d4a-f500343f6fe3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[   i.  Attribuera le contrat au soumissionnaire qualifié au vu de son expérience, dont l’offre sera jugée conforme aux exigences du dossier de consultation et moins disante par rapport aux autres concurrents.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="637" width="550" height="20" uuid="5a99b19c-9a67-42f6-bff1-8c385ec701be"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[  ii.  N’est pas tenue de donner suite à la présente Consultation des candidats.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="657" width="550" height="70" uuid="244c902c-bde6-472a-b185-d139f2693c91"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[8.  La présente lettre a été adressée en même temps à d’autres fournisseurs opérant dans le domaine comme vous pour présenter des offres.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="674" width="550" height="70" uuid="3cafd018-542a-4cfd-ad6b-a0d20e972ee2"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+					<paragraph lineSpacing="1_1_2" lineSpacingSize="2.0"/>
+				</textElement>
+				<text><![CDATA[L’Ordonnateur : Signature]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="372" width="550" height="49" uuid="130fdd04-94bc-4f24-84c8-33c0786f4c3b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3.  L’enveloppe fermée contenant l’offre doit porter exclusivement les mentions suivantes : « " +" de "+ $F{non_autorite_contractante} +", Offre relative à :  "+$F{objet_depense} +" ), à n’ouvrir qu’en séance de la Commission ad ’hoc »."]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>
