@@ -1,6 +1,5 @@
 package org.sid.services;
 
-import org.sid.entites.AppUser;
 import org.sid.entites.plan_anuell_achat;
 
 import java.util.List;

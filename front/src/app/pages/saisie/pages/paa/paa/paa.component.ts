@@ -17,6 +17,8 @@ import {saveAs} from "file-saver";
   styleUrls: ['./paa.component.scss'],
   providers: [DatePipe]
 })
+  
+  
 export class PaaComponent implements OnInit {
   cpass = false;
   @ViewChild('container', {read: ElementRef, static: true}) container: ElementRef;
