@@ -60,18 +60,21 @@ export class AuthenticationService implements OnInit {
 
   saveToken(jwt:any) {
     localStorage.setItem('token',jwt);
-    this.jwt=jwt;
+    this.jwt = jwt;
+    console.log("token : "+jwt);
+
     this.parseJWT();
   }
 
   parseJWT(){
     let jwtHelper = new JwtHelperService();
+    
     let objJWT =jwtHelper.decodeToken(this.jwt);
     this.username=objJWT.obj;
     this.roles=objJWT.roles;
     this.exp = objJWT.exp;
     console.log(objJWT)
-
+    
   }
   isAdmin(){
     // return this.roles.indexOf('ADMINISTRATEUR')>=0;
