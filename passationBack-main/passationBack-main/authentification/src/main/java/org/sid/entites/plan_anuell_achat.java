@@ -19,47 +19,43 @@ import java.util.List;
 @ToString
 
 public class plan_anuell_achat implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String objetDepense;
-    private String inpuBudgetaire;
-    private Integer fkidTypeMarche;
-    private Integer fkidModPassation;
-    private Double mntEstimatif;
-    private LocalDate datePreviLancement;
-    private LocalDate datePreviAttribution;
-    private  Timestamp dateCrationProcedure;
-    private String origine;
-    private String destinataire;
-    private boolean enprocedure=false;
-    private boolean dosssierCree=false;
 
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer id;
+        private String objetDepense;
+        private String inpuBudgetaire;
+        private Integer fkidTypeMarche;
+        private Integer fkidModPassation;
 
-    @ManyToOne
-    @JoinColumns({@JoinColumn(name = "fkidTypeMarche", referencedColumnName = "id", nullable =
-            false, updatable = false, insertable = false) })
-    private type_marche typeMarche;
+        private Double mntEstimatif;
 
-    @ManyToOne
-    @JoinColumns({@JoinColumn(name = "fkidModPassation", referencedColumnName = "id", nullable =
-            false, updatable = false, insertable = false) })
-    private mod_passation modPassation;
+        private Double montantRestant;
 
+        private LocalDate datePreviLancement;
+        private LocalDate datePreviAttribution;
+        private Timestamp dateCrationProcedure;
+        private String origine;
+        private String destinataire;
+        private boolean enprocedure = false;
+        private boolean dosssierCree = false;
 
+        @ManyToOne
+        @JoinColumns({ @JoinColumn(name = "fkidTypeMarche", referencedColumnName = "id", nullable = false, updatable = false, insertable = false) })
+        private type_marche typeMarche;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumns( {
-            @JoinColumn(name="idElm", referencedColumnName="id")
+        @ManyToOne
+        @JoinColumns({ @JoinColumn(name = "fkidModPassation", referencedColumnName = "id", nullable = false, updatable = false, insertable = false) })
+        private mod_passation modPassation;
 
-    }
-    )
-    private List<FileDB> fileDB;
+        @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+        @JoinColumns({
+                        @JoinColumn(name = "idElm", referencedColumnName = "id")
 
-//    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    @JoinColumns( {
-//            @JoinColumn(name="idPaa", referencedColumnName="id")
-//    } )
-//    private List<FileDB> listFiles;
+        })
+        private List<FileDB> fileDB;
+
+        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private List<ProcedurePaa> procedures;
 
 }

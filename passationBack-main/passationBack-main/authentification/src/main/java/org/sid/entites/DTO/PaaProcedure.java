@@ -16,34 +16,41 @@ public class PaaProcedure {
     private LocalDate datePreviAttribution;
     private String inpuBudgetaire;
     private Double mntEstimatif;
+    // private Double montant_restant;
+    // private Double montant_consomme;
     private String modePassation;
 
-//    private String name;
-//    private String fileNameOnDisc;
-//    //private Date dtUpload;
-//    private int fkIdTbl;
+    // private String name;
+    // private String fileNameOnDisc;
+    // //private Date dtUpload;
+    // private int fkIdTbl;
 
-//    public PaaProcedure(Integer id, String origine, String destinataire, String objetDepense, LocalDate datePreviLancement, LocalDate datePreviAttribution, String inpuBudgetaire, Double mntEstimatif, String modePassation, String name, String fileNameOnDisc, int fkIdTbl) {
-//        this.id = id;
-//        this.origine = origine;
-//        this.destinataire = destinataire;
-//        this.objetDepense = objetDepense;
-//        this.datePreviLancement = datePreviLancement;
-//        this.datePreviAttribution = datePreviAttribution;
-//        this.inpuBudgetaire = inpuBudgetaire;
-//        this.mntEstimatif = mntEstimatif;
-//        this.modePassation = modePassation;
-//        this.name = name;
-//        this.fileNameOnDisc = fileNameOnDisc;
-//        //this.dtUpload = dtUpload;
-//        this.fkIdTbl=fkIdTbl;
-//
-//    }
+    // public PaaProcedure(Integer id, String origine, String destinataire, String
+    // objetDepense, LocalDate datePreviLancement, LocalDate datePreviAttribution,
+    // String inpuBudgetaire, Double mntEstimatif, String modePassation, String
+    // name, String fileNameOnDisc, int fkIdTbl) {
+    // this.id = id;
+    // this.origine = origine;
+    // this.destinataire = destinataire;
+    // this.objetDepense = objetDepense;
+    // this.datePreviLancement = datePreviLancement;
+    // this.datePreviAttribution = datePreviAttribution;
+    // this.inpuBudgetaire = inpuBudgetaire;
+    // this.mntEstimatif = mntEstimatif;
+    // this.modePassation = modePassation;
+    // this.name = name;
+    // this.fileNameOnDisc = fileNameOnDisc;
+    // //this.dtUpload = dtUpload;
+    // this.fkIdTbl=fkIdTbl;
+    //
+    // }
 
     public PaaProcedure() {
     }
 
-    public PaaProcedure(Integer id, String origine, String destinataire, String objetDepense, LocalDate datePreviLancement, LocalDate datePreviAttribution, String inpuBudgetaire, Double mntEstimatif, String modePassation) {
+    public PaaProcedure(Integer id, String origine, String destinataire, String objetDepense,
+            LocalDate datePreviLancement, LocalDate datePreviAttribution, String inpuBudgetaire, Double mntEstimatif,
+            String modePassation) {
         this.id = id;
         this.origine = origine;
         this.destinataire = destinataire;
@@ -52,6 +59,9 @@ public class PaaProcedure {
         this.datePreviAttribution = datePreviAttribution;
         this.inpuBudgetaire = inpuBudgetaire;
         this.mntEstimatif = mntEstimatif;
+        // this.montant_restant = montant_restant;
+        // this.montant_consomme = montant_consommé;
         this.modePassation = modePassation;
     }
+
 }
