@@ -35,7 +35,7 @@ public class ProcedurePaa  {
     private double montant;
 
     @ManyToOne
-    @JoinColumn(name = "plan_anuell_achat_id", nullable = false)
+    @JoinColumn(name = "paaid", nullable = false)
     private plan_anuell_achat paa;
 
 }

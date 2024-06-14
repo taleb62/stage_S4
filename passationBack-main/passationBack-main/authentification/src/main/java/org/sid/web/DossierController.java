@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rest/Dossier")
+@RequestMapping("/api/rest/dossier")
 public class DossierController {
 
     @Autowired
@@ -32,23 +32,21 @@ public class DossierController {
     @Autowired
     ServiceReport report;
 
-
     @CrossOrigin(origins = "*")
     @GetMapping("/getAllDossier")
-    public List<DossierFileDTO> getAllDossier(){
+    public List<DossierFileDTO> getAllDossier() {
         return dossierService.getAllDossier();
     }
 
-
     @CrossOrigin(origins = "*")
     @GetMapping("/getLettres/{id}")
-    public List<Lettre> getLettres(@PathVariable Integer id){
+    public List<Lettre> getLettres(@PathVariable Integer id) {
         return dossierService.getAllLettres(id);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/LettresNotInPlis/{id}")
-    public List<Lettre> LettresNotInPlis(@PathVariable Integer id){
+    public List<Lettre> LettresNotInPlis(@PathVariable Integer id) {
         return dossierService.LettresNotInPlis(id);
     }
 
@@ -68,10 +66,19 @@ public class DossierController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/report/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity generateReport(@PathVariable Integer id,@RequestParam("report-name") String reportName) throws IOException, JRException {
-        return report.exportReportLettre(id,reportName);
+    public ResponseEntity generateReport(@PathVariable Integer id, @RequestParam("report-name") String reportName)
+            throws IOException, JRException {
+        return report.exportReportLettre(id, reportName);
     }
 
+    @PutMapping("/{id}")
+    public Dossier updateEtat(@PathVariable Integer id) {
+        // TODO: process POST request
+
+        
+
+        return dossierService.updateEtat(id);
+
+    }
 
 }
-

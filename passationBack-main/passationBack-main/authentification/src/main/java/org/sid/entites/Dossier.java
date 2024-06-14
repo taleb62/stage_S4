@@ -20,7 +20,8 @@ public class Dossier implements Serializable {
     private String reference;
     private Integer idPaa;
     private int fkIduser;
-    private boolean LettreCree=false;
+    private boolean LettreCree = false;
+    private boolean ouvert=true;
 
     public Dossier(String reference, Integer idPaa,int fkIduser) {
         this.reference=reference;

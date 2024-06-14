@@ -45,4 +45,12 @@ public interface DossierRepository extends JpaRepository<Dossier, Integer> {
     @Query(value = "SELECT l FROM Lettre l JOIN Dossier d ON l.idDossier=d.id WHERE l.id not IN(SELECT l.id FROM Lettre l JOIN Plis p on l.id=p.idLettre) AND d.id=?1")
     List<Lettre> LettresNotInPlis(Integer id);
 
+    @Modifying
+    @Transactional
+    @Query(value = "update Dossier set ouvert=?1 where id=?2")
+    void updateEtat(Boolean ouvert, Integer id);
+
+
+    
+
 }
