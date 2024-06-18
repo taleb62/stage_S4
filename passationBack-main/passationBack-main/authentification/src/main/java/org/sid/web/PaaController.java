@@ -1,6 +1,5 @@
 package org.sid.web;
 
-
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.Data;
 import net.sf.jasperreports.engine.JRException;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/rest/Paa")
 public class PaaController {
@@ -30,10 +30,9 @@ public class PaaController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/getAllPaaa")
-    public List<plan_anuell_achat> getAllPaaa(){
+    public List<plan_anuell_achat> getAllPaaa() {
         return paaService.getAllPaa();
     }
-
 
     @GetMapping("/listPaa")
     public ArrayNode getListDocs() {
@@ -41,10 +40,10 @@ public class PaaController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping ("/updatePaa")
-    public plan_anuell_achat updatePaa(@RequestBody PaaFormProcedure data){
-        System.out.println("**********************************"+data);
-        return paaService.updatePaa(data.getId(),data.getOrigine(),data.getDestinataire());
+    @PostMapping("/updatePaa")
+    public plan_anuell_achat updatePaa(@RequestBody PaaFormProcedure data) {
+        System.out.println("**********************************" + data);
+        return paaService.updatePaa(data.getId(), data.getOrigine(), data.getDestinataire());
     }
 
     @CrossOrigin(origins = "*")
@@ -52,9 +51,16 @@ public class PaaController {
     public ResponseEntity generateReport(@PathVariable Integer id) throws IOException, JRException {
         return report.exportReport(id);
     }
+
+    @PutMapping("valider/{id}")
+    public plan_anuell_achat validerPaa(@PathVariable Integer id) {
+
+        return service.validatePlanAnuellAchat(id);
+    }
 }
+
 @Data
-class PaaFormProcedure{
+class PaaFormProcedure {
     private Integer id;
     private String origine;
     private String destinataire;

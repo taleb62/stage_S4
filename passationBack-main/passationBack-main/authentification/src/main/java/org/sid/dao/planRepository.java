@@ -17,9 +17,9 @@ public interface planRepository extends JpaRepository<plan_anuell_achat, Integer
     @Query(value = "select p from plan_anuell_achat p where id=?1")
     plan_anuell_achat getPaa(Integer id);
 
-    @Query(value = "select * from plan_anuell_achat p inner join mod_passation m on p.fkid_mod_passation=m.id " +
-            "inner join type_marche t on p.fkid_type_marche=t.id inner join files f on p.id = f.id_elm where f.fk_id_tbl = 1;", nativeQuery = true)
-    List<Map<String, Object>> getPaas();
+    // @Query(value = "select * from plan_anuell_achat p inner join mod_passation m on p.fkid_mod_passation=m.id " +
+    //         "inner join type_marche t on p.fkid_type_marche=t.id inner join files f on p.id = f.id_elm where f.fk_id_tbl = 1;", nativeQuery = true)
+    // List<Map<String, Object>> getPaas();
 
     // @Query(value="select
     // p.id,p.origine,p.destinataire,p.objet_depense,p.date_previ_lancement,p.date_previ_attribution,p.inpu_budgetaire,p.mnt_estimatif,m.mode_passation

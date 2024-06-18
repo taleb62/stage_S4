@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rest/dossier")
+@RequestMapping("/api/rest/Dossier")
 public class DossierController {
 
     @Autowired

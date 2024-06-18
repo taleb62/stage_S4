@@ -46,12 +46,24 @@ public class PaaServiceImpl implements PaaService{
     }
 
     @Override
-    public plan_anuell_achat updatePaa(Integer id,String origine, String destinataire) {
-          plan_anuell_achat paa = repo.getPaa(id);
-        if (paa == null) throw new RuntimeException("le PAA non trouvé !");
-        repo.updatePaa(origine,destinataire,!paa.isEnprocedure(),id);
+    public plan_anuell_achat updatePaa(Integer id, String origine, String destinataire) {
+        plan_anuell_achat paa = repo.getPaa(id);
+        if (paa == null)
+            throw new RuntimeException("le PAA non trouvé !");
+        repo.updatePaa(origine, destinataire, !paa.isEnprocedure(), id);
         plan_anuell_achat paa1 = repo.getPaa(id);
         return paa1;
+    }
+    
+    public plan_anuell_achat validatePlanAnuellAchat(Integer id) {
+        // Fetch the plan_anuell_achat by id
+        plan_anuell_achat paa = repo.getPaa(id);
+        
+        // Set the validation status to true
+        paa.setIsvalidated(true);
+        
+        // Save the updated plan_anuell_achat back to the database
+        return repo.save(paa);
     }
 
 }
