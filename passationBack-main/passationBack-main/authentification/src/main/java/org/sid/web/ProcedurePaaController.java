@@ -39,23 +39,23 @@ public class ProcedurePaaController {
 
     @PostMapping(value =  "/{paaid}" ,produces = MediaType.APPLICATION_JSON_VALUE)
     
-    public List<ProcedurePaa> create(@PathVariable Integer paaid,
+    public ResponseEntity<Object> create(@PathVariable Integer paaid,
             @RequestBody ProcedureRequest procedureRequest) {
         plan_anuell_achat paa = paaRepository.findById(paaid)
                 .orElseThrow(() -> new RuntimeException("PAA not found"));
 
-        List<ProcedurePaa> pro = paa.getProcedures();
+        // List<ProcedurePaa> pro = paa.getProcedures();
 
-        return pro;
-        // service.createProcedure(
-        // paaid,
-        // procedureRequest.getOrigin(),
-        // procedureRequest.getDestinataire(),
-        // procedureRequest.getSourceFinanciere(),
-        // procedureRequest.getDescription(),
-        // procedureRequest.getDeadlineEstime(),
-        // procedureRequest.getMontant());
-        // return ResponseEntity.status(HttpStatus.CREATED).build();
+        // return pro;
+        service.createProcedure(
+        paaid,
+        procedureRequest.getOrigin(),
+        procedureRequest.getDestinataire(),
+        procedureRequest.getSourceFinanciere(),
+        procedureRequest.getDescription(),
+        procedureRequest.getDeadlineEstime(),
+        procedureRequest.getMontant());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
 

@@ -1,13 +1,17 @@
 package org.sid.entites;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,12 +25,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class ProcedurePaa  {
+public class ProcedurePaa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    
+
     private String origin;
     private String destinataire;
     private String sourceFinanciere;
@@ -37,5 +41,8 @@ public class ProcedurePaa  {
     @ManyToOne
     @JoinColumn(name = "paaid")
     private plan_anuell_achat paa;
+
+    @OneToMany(mappedBy = "procedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Verdict> verdicts;
 
 }
