@@ -1,19 +1,29 @@
 package org.sid.web;
 
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import lombok.Data;
-import net.sf.jasperreports.engine.JRException;
+import java.io.IOException;
+import java.util.List;
+
 import org.sid.entites.plan_anuell_achat;
+import org.sid.entites.DTO.PaaFormProcedure;
 import org.sid.services.PaaService;
 import org.sid.services.PaaServiceImpl;
 import org.sid.services.ServiceReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.util.List;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+
+import net.sf.jasperreports.engine.JRException;
+
 
 @RestController
 @RequestMapping("/api/rest/Paa")
@@ -51,6 +61,15 @@ public class PaaController {
     public ResponseEntity generateReport(@PathVariable Integer id) throws IOException, JRException {
         return report.exportReport(id);
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping("/addPaa")
+    public ResponseEntity<plan_anuell_achat> addPaa(@RequestBody PaaFormProcedure data) {
+        plan_anuell_achat newPaa = paaService.addPaa(data);
+        return ResponseEntity.ok(newPaa);
+    }
+
+
+
 
     @PutMapping("valider/{id}")
     public plan_anuell_achat validerPaa(@PathVariable Integer id) {
@@ -59,9 +78,4 @@ public class PaaController {
     }
 }
 
-@Data
-class PaaFormProcedure {
-    private Integer id;
-    private String origine;
-    private String destinataire;
-}
+
