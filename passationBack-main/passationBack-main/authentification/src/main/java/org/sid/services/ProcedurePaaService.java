@@ -1,5 +1,7 @@
 package org.sid.services;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,9 @@ public class ProcedurePaaService {
     private ProcedureRepository repository;
 
     @Autowired
+    private ReportService reportService;
+
+    @Autowired
     private planRepository paaRepository;
 
     public List<ProcedurePaa> findAll() {
@@ -38,49 +43,22 @@ public class ProcedurePaaService {
         repository.deleteById(id);
     }
 
-    public ProcedurePaa createProcedure(
-            Integer paaId,
-            String origin,
-            String destinataire,
-            String sourceFinanciere,
-            String description,
-            LocalDate deadlineEstime,
-            double montant) {
-
-        // if (paaId == null || origin == null || destinataire == null || sourceFinanciere == null || description == null
-        //         || deadlineEstime == null || montant == 0) {
-            
-        //             System.out.println("les donnee sont null");
-            
-        // }
-
-        plan_anuell_achat paa = paaRepository.findById(paaId)
-                .orElseThrow(() -> new RuntimeException("PAA not found"));
-
     
 
-        // if (paa.getMontantRestant() < montant) {
-        //     throw new RuntimeException("Insufficient funds in PAA");
-        // }
+    public ProcedurePaa createProcedure(ProcedurePaa procedurePaa) {
+        ProcedurePaa savedProcedure = repository.save(procedurePaa);
 
+        try {
+            byte[] report = reportService.generateProcedureReport(savedProcedure);
+            String reportPath = "C:/Users/lapto/Desktop/stage_project/uploads/procedures/report_" + savedProcedure.getId() + ".pdf";
+            Files.write(Paths.get(reportPath), report);
 
-        // if (paaId == null || origin == null) {
-        // throw new IllegalArgumentException("idpaa and origin cannot be null");
-        // }
+            // Mettre à jour le champ pathInitialProcedure
+            savedProcedure.setPathInitialProcedure(reportPath);
+            repository.save(savedProcedure);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        ProcedurePaa procedure = new ProcedurePaa();
-        procedure.setOrigin(origin);
-        procedure.setMontant(montant);
-        procedure.setPaa(paa);
-        procedure.setDestinataire(destinataire);
-        procedure.setSourceFinanciere(sourceFinanciere);
-        procedure.setDescription(description);
-        procedure.setDeadlineEstime(deadlineEstime);
-
-        paa.setMontantRestant(paa.getMontantRestant() - montant);
-        paa.getProcedures().add(procedure);
-        paaRepository.save(paa); // Save the PAA to update the remaining amount
-        return repository.save(procedure); // Save the procedure
-    }
-
-}
+        return savedProcedure;
+    }}

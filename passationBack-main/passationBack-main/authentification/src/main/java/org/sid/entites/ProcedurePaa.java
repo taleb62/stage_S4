@@ -37,6 +37,8 @@ public class ProcedurePaa {
     private String description;
     private LocalDate deadlineEstime;
     private double montant;
+    private String pathInitialProcedure;
+    private String pathBesoin;
 
     @ManyToOne
     @JoinColumn(name = "paaid")
