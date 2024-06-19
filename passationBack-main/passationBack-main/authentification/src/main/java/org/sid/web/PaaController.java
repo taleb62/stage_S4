@@ -1,5 +1,7 @@
 package org.sid.web;
 
+import org.sid.entites.DTO.PaaFormProcedure;
+
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.Data;
@@ -15,6 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.time.LocalDate;
+import java.sql.Timestamp;
+
+
 @RestController
 @RequestMapping("/api/rest/Paa")
 public class PaaController {
@@ -52,10 +58,12 @@ public class PaaController {
     public ResponseEntity generateReport(@PathVariable Integer id) throws IOException, JRException {
         return report.exportReport(id);
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping("/addPaa")
+    public ResponseEntity<plan_anuell_achat> addPaa(@RequestBody PaaFormProcedure data) {
+        plan_anuell_achat newPaa = paaService.addPaa(data);
+        return ResponseEntity.ok(newPaa);
+    }
+
 }
-@Data
-class PaaFormProcedure{
-    private Integer id;
-    private String origine;
-    private String destinataire;
-}
+

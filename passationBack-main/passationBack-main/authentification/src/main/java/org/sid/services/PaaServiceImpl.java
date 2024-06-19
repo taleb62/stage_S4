@@ -6,6 +6,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.sid.dao.planRepository;
 import org.sid.entites.AppUser;
 import org.sid.entites.plan_anuell_achat;
+import org.sid.entites.DTO.PaaFormProcedure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,5 +54,21 @@ public class PaaServiceImpl implements PaaService{
         plan_anuell_achat paa1 = repo.getPaa(id);
         return paa1;
     }
-
+ @Override
+    public plan_anuell_achat addPaa(PaaFormProcedure data) {
+        plan_anuell_achat newPaa = new plan_anuell_achat();
+        newPaa.setObjetDepense(data.getObjetDepense());
+        newPaa.setInpuBudgetaire(data.getInpuBudgetaire());
+        newPaa.setFkidTypeMarche(data.getFkidTypeMarche());
+        newPaa.setFkidModPassation(data.getFkidModPassation());
+        newPaa.setMntEstimatif(data.getMntEstimatif());
+        newPaa.setDatePreviLancement(data.getDatePreviLancement());
+        newPaa.setDatePreviAttribution(data.getDatePreviAttribution());
+        newPaa.setDateCrationProcedure(data.getDateCrationProcedure());
+        newPaa.setOrigine(data.getOrigine());
+        newPaa.setDestinataire(data.getDestinataire());
+        newPaa.setEnprocedure(false);
+        newPaa.setDosssierCree(false);
+        return repo.save(newPaa);
+    }
 }
