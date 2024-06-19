@@ -35,10 +35,13 @@ public class plan_anuell_achat implements Serializable {
         private LocalDate datePreviLancement;
         private LocalDate datePreviAttribution;
         private Timestamp dateCrationProcedure;
+
         private String origine;
         private String destinataire;
+
         private boolean enprocedure = false;
         private boolean dosssierCree = false;
+        private boolean isvalidated=false;
 
         @ManyToOne
         @JoinColumns({ @JoinColumn(name = "fkidTypeMarche", referencedColumnName = "id", nullable = false, updatable = false, insertable = false) })
@@ -55,7 +58,7 @@ public class plan_anuell_achat implements Serializable {
         })
         private List<FileDB> fileDB;
 
-        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "paa")
         private List<ProcedurePaa> procedures;
 
 }

@@ -78,8 +78,8 @@ public class ProcedurePaaService {
         procedure.setDeadlineEstime(deadlineEstime);
 
         paa.setMontantRestant(paa.getMontantRestant() - montant);
-        // paa.getProcedures().add(procedure);
-        // paaRepository.save(paa); // Save the PAA to update the remaining amount
+        paa.getProcedures().add(procedure);
+        paaRepository.save(paa); // Save the PAA to update the remaining amount
         return repository.save(procedure); // Save the procedure
     }
 

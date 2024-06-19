@@ -9,7 +9,9 @@ import org.sid.entites.plan_anuell_achat;
 import org.sid.entites.DTO.ProcedureRequest;
 import org.sid.services.ProcedurePaaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,11 +37,16 @@ public class ProcedurePaaController {
         return procedurePaa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{paaid}")
+    @PostMapping(value =  "/{paaid}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    
     public ResponseEntity<Object> create(@PathVariable Integer paaid,
             @RequestBody ProcedureRequest procedureRequest) {
+        plan_anuell_achat paa = paaRepository.findById(paaid)
+                .orElseThrow(() -> new RuntimeException("PAA not found"));
 
-        
+        // List<ProcedurePaa> pro = paa.getProcedures();
+
+        // return pro;
         service.createProcedure(
         paaid,
         procedureRequest.getOrigin(),
@@ -50,13 +57,6 @@ public class ProcedurePaaController {
         procedureRequest.getMontant());
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
-        // if (procedureRequest == null) {
-
-        // return 0;
-
-        // }
-
-        // return procedureRequest.getSourceFinanciere();
     }
 
     @PutMapping("/{id}")

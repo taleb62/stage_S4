@@ -59,4 +59,6 @@ public class ContractantController {
         contractantService.deleteContractant(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    
 }
