@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,6 +77,14 @@ public class PaaController {
 
         return service.validatePlanAnuellAchat(id);
     }
+
+ @CrossOrigin(origins = "*")
+@DeleteMapping("/deletePaa/{id}")
+public ResponseEntity<String> deletePaa(@PathVariable Integer id) {
+    paaService.deletePaa(id);
+    return ResponseEntity.ok("PAA deleted successfully");
+}
+
 }
 
 

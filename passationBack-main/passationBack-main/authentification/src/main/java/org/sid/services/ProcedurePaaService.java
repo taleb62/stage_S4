@@ -22,6 +22,8 @@ public class ProcedurePaaService {
     @Autowired
     private planRepository paaRepository;
 
+    
+
     public List<ProcedurePaa> findAll() {
         return repository.findAll();
     }
@@ -82,5 +84,6 @@ public class ProcedurePaaService {
         paaRepository.save(paa); // Save the PAA to update the remaining amount
         return repository.save(procedure); // Save the procedure
     }
+
 
 }

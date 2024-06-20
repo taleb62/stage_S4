@@ -31,7 +31,7 @@ public class PaaServiceImpl implements PaaService{
 
         List<Map<String, Object>> paas =repo.getPaas();
         ArrayNode res = new ObjectMapper().createArrayNode();
-
+ 
         paas.forEach(paa -> {
                     res.add(new ObjectMapper().createObjectNode()
                             .put("id", paa.get("id").toString())
@@ -84,5 +84,11 @@ public class PaaServiceImpl implements PaaService{
         // Save the updated plan_anuell_achat back to the database
         return repo.save(paa);
     }
+
+    @Override
+public void deletePaa(Integer id) {
+    repo.deleteById(id);
+}
+
 
 }
