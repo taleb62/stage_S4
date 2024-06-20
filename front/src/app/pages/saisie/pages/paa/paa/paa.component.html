@@ -6,12 +6,7 @@
         <div class="col-sm-6">
           <h1>Planification des achats</h1>
         </div>
-        <!--        <div class="col-sm-6">-->
-        <!--          <ol class="breadcrumb float-sm-right">-->
-        <!--            <li class="breadcrumb-item"><a href="#">Accueil</a></li>-->
-        <!--            <li class="breadcrumb-item active">Gestion utilisateur</li>-->
-        <!--          </ol>-->
-        <!--        </div>-->
+
       </div>
     </div>
   </section>
@@ -37,16 +32,15 @@
                       <div class="col"><span> Origin  </span></div>
                       <div class="col-8">
                         <input formControlName='origine' type="text" placeholder="(Services demandeurs ou utilisateurs)"
-                               class="form-control text-center form-control-xs form-control-sm">
+                              class="form-control text-center form-control-xs form-control-sm">
                       </div>
                     </div>
                     <div class="row g-2 mt-2">
                       <div class="col"><span> Destinataire </span></div>
                       <div class="col-8">
                         <input formControlName='destinataire' type="text"
-                               placeholder="(Ordonnateur ou son délégataire de pouvoirs)"
-                               class="form-control text-center form-control-xs form-control-sm"
-                        >
+                            placeholder="(Ordonnateur ou son délégataire de pouvoirs)"
+                            class="form-control text-center form-control-xs form-control-sm">
 
                       </div>
                     </div>
@@ -155,6 +149,7 @@
           <!--          <span *ngIf=" selectedPaa != null"> {{selectedPaa[0]['enprocedure'] | json}}</span>-->
 
           <div *ngIf="selectedPaa!=null">
+
             <button [hidden]="selectedPaa[0]['enprocedure']===true" class="btn btn-sm btn-outline-primary"
                     (click)="declancherProcedure($event)"
                     type="button"><span
@@ -162,6 +157,22 @@
               Declancher la procedure
 
             </button>
+
+            <button [hidden]="selectedPaa[0]['enprocedure']===true" *ngIf="selectedPaa && selectedPaa.length > 0 && 'enProcedure' in selectedPaa[0]"
+              (click)="supprimerPaa(selectedPaa[0]['id'])"
+              class="btn btn-sm btn-outline-danger ml-4"
+              type="button">
+        Supprimer
+      </button>
+
+
+
+
+
+
+
+
+
             <button
               (click)="CreationDossier($event)"
               *ngIf="selectedPaa!=null"
@@ -191,6 +202,15 @@
               class="fas fa-eye "></span>
               Detail
             </button>
+            <!-- <button *ngIf="selectedPaa && !selectedPaa[0].enprocedure"
+        (click)="supprimerPaa(selectedPaa[0].id)"
+        class="btn btn-sm btn-outline-danger"
+        type="button">
+  <span class="fas fa-trash"></span> Supprimer
+</button> -->
+
+
+
 
 
           </div>
@@ -279,81 +299,7 @@
                   </div>
                 </div>
               </form>
-<!--              <form [formGroup]="formCreationDir" (ngSubmit)="validerCreationDir()">-->
-<!--                <div class="table-responsive ">-->
-<!--                  <div class="container text-center">-->
-<!--                    <div class="row g-2 mt-2">-->
-<!--                      <div class="col"><span> Réference ou numero sérial  </span></div>-->
-<!--                      <div class="col-8" *ngIf="selectedPaa!=null">-->
-<!--                        <input disabled class="text-center form-control form-control-xs form-control-sm"-->
-<!--                               formControlName="reference"-->
-<!--                               placeholder="{{selectedPaa[0]['id']}}/{{myDateYear}}"-->
-<!--                               type="text" value="{{selectedPaa[0]['id']}}/{{myDateYear}}">-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="row g-2 mt-2">-->
-<!--                      <div class="col"><span> Objet  </span></div>-->
-<!--                      <div class="col-8" *ngIf="selectedPaa!=null">-->
-<!--                        <input disabled class="text-center form-control form-control-xs form-control-sm"-->
-<!--                               formControlName="objetDepense"-->
-<!--                               placeholder="{{selectedPaa[0]['objetDepense']}}"-->
-<!--                               type="text" value="{{selectedPaa[0]['objetDepense']}}">-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="row g-2 mt-2">-->
-<!--                      <div class="col"><span> Source de financement  </span></div>-->
-<!--                      <div class="col-8" *ngIf="selectedPaa!=null">-->
-<!--                        <input disabled class="text-center form-control form-control-xs form-control-sm"-->
-<!--                               formControlName="inpuBudgetaire"-->
-<!--                               placeholder="{{selectedPaa[0]['inpuBudgetaire']}}"-->
-<!--                               type="text" value="{{selectedPaa[0]['inpuBudgetaire']}}">-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="row g-2 mt-2">-->
-<!--                      <div class="col mt-2"><span>Expression de Besoin signé  </span></div>-->
-<!--                      <div class="col-8">-->
 
-
-<!--                        <label class="btn btn-default btn-sm form-control form-control-xs form-control-sm">-->
-<!--                          <input formControlName="file" type="file" (change)="selectFile($event)"/>-->
-<!--                        </label>-->
-<!--                        <div *ngIf="message!=''" class="text-success text-center"-->
-<!--                             role="alert">{{ message }}</div>-->
-<!--                        <div *ngIf="errorMsg!=''" class="text-red text-center"-->
-<!--                             role="alert">{{ errorMsg }}</div>-->
-<!--                        <div *ngIf="currentFile" class="progress">-->
-<!--                          <div-->
-<!--                            class="progress-bar progress-bar-info progress-bar-striped"-->
-<!--                            role="progressbar"-->
-<!--                            attr.aria-valuenow="{{ progress }}"-->
-<!--                            aria-valuemin="0"-->
-<!--                            aria-valuemax="100"-->
-<!--                            [ngStyle]="{ width: progress + '%' }"-->
-<!--                          >-->
-<!--                            {{ progress }}%-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="row mt-2">-->
-<!--                      <div class="col-8">-->
-<!--                      </div>-->
-<!--                      <div class="col-4">-->
-<!--                        &lt;!&ndash;                                <button [disabled]="formCreationDir.invalid "&ndash;&gt;-->
-<!--                        &lt;!&ndash;                                        class="btn btn-sm btn-success btn-block"&ndash;&gt;-->
-<!--                        &lt;!&ndash;                                        type="submit">valider&ndash;&gt;-->
-<!--                        &lt;!&ndash;                                </button>&ndash;&gt;-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="row g-2 mt-2">-->
-<!--                      <div class="col-10 mt-2"></div>-->
-<!--                      <div class="col-2 mt-2">-->
-<!--                        <button [disabled]="formCreationDir.invalid" class="btn btn-success btn-sm">Valider</button>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </form>-->
 
 
             </div>
@@ -445,21 +391,66 @@
               </e-column>
               <e-column field='typeMarche' headerText='Type Marché' textAlign='Center' width=120>
                 <ng-template #template let-data>
-                  {{data.typeMarche.typeMarche }}
+                  {{data.typeMarche ? data.typeMarche.typeMarche : ''}}
                 </ng-template>
               </e-column>
               <e-column field='modePassation' headerText='Mode de passation' textAlign='Center' width=120>
                 <ng-template #template let-data>
-                  {{data.modPassation.modePassation }}
+                  {{data.modPassation ? data.modPassation.modePassation : ''}}
                 </ng-template>
               </e-column>
+
+
               <e-column field='objetDepense' headerText='objet Depense' textAlign='Center' width=120>
                 <ng-template #template let-data>
                   {{data.objetDepense }}
                 </ng-template>
               </e-column>
             </e-columns>
+
           </ejs-grid>
+<!-- Ajout du bouton -->
+<div class="mt-2 text-center">
+  <button class="btn btn-outline-primary" (click)="showNewRow = !showNewRow">
+    <span class="fas fa-plus"></span> Ajouter
+  </button>
+</div>
+
+<!-- Affichage du formulaire -->
+<div *ngIf="showNewRow" class="mt-2">
+  <form [formGroup]="newRowForm" (ngSubmit)="addNewRow()" class="container">
+    <div class="row g-2">
+      <div class="col-md-2">
+        <input formControlName="id" type="text" class="form-control text-center form-control-xs form-control-sm"
+          placeholder="Code">
+      </div>
+      <div class="col-md-2">
+        <input formControlName="inpuBudgetaire" type="text" class="form-control text-center form-control-xs form-control-sm"
+          placeholder="Imputation">
+      </div>
+      <div class="col-md-2">
+        <input formControlName="mntEstimatif" type="text" class="form-control text-center form-control-xs form-control-sm"
+          placeholder="Montant">
+      </div>
+      <div class="col-md-2">
+        <input formControlName="typeMarche" type="text" class="form-control text-center form-control-xs form-control-sm"
+          placeholder="Type Marché">
+      </div>
+      <div class="col-md-2">
+        <input formControlName="modePassation" type="text" class="form-control text-center form-control-xs form-control-sm"
+          placeholder="Mode de passation">
+      </div>
+      <div class="col-md-2">
+        <input formControlName="objetDepense" type="text" class="form-control text-center form-control-xs form-control-sm"
+          placeholder="Objet Depense">
+      </div>
+    </div>
+    <div class="mt-2 text-center">
+      <button [disabled]="newRowForm.invalid" class="btn btn-success btn-sm" type="submit">Valider</button>
+    </div>
+  </form>
+</div>
+
         </div>
       </div>
     </div>

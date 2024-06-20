@@ -23,6 +23,7 @@
     "@angular/router": "~9.1.6",
     "@auth0/angular-jwt": "^5.0.2",
     "@ng-select/ng-select": "^6.1.0",
+    "@sweetalert2/ngx-sweetalert2": "^12.3.0",
     "@swimlane/ngx-datatable": "^19.0.0",
     "@syncfusion/ej2-angular-buttons": "^19.1.54",
     "@syncfusion/ej2-angular-charts": "^19.2.62",
@@ -56,6 +57,7 @@
     "ngx-toastr": "^12.1.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
+    "sweetalert2": "^11.12.0",
     "tslib": "^1.10.0",
     "xlsx": "^0.16.9",
     "zone.js": "~0.10.2"
@@ -81,5 +83,6 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
+
   }
 }

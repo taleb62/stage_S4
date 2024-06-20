@@ -11,5 +11,8 @@ public interface PaaService {
     
     plan_anuell_achat updatePaa(Integer id,String origine,String destinataire);
 
-    public plan_anuell_achat addPaa(PaaFormProcedure data);
+    public plan_anuell_achat addPaa(PaaFormProcedure data); 
+    void deletePaa(Integer id);
+
+    
 }

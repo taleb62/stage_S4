@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+// import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import {GridComponent, RowDeselectEventArgs, RowSelectEventArgs} from "@syncfusion/ej2-angular-grids";
 import {PaaService} from "../../../../../services/paa.service";
 import {DialogComponent, PositionDataModel} from '@syncfusion/ej2-angular-popups';
@@ -17,8 +18,8 @@ import {saveAs} from "file-saver";
   styleUrls: ['./paa.component.scss'],
   providers: [DatePipe]
 })
-  
-  
+
+
 export class PaaComponent implements OnInit {
   cpass = false;
   @ViewChild('container', {read: ElementRef, static: true}) container: ElementRef;
@@ -33,13 +34,15 @@ export class PaaComponent implements OnInit {
   public dialogDossierDetail;
 
   @ViewChild('grid') public grid: GridComponent;
+  selectedPaaId: number | null = null;
 
   GED_TBL = GED_TBL;
   REPORTS = REPORTS;
   data: any;
   selectedPaa: Object[] = null;
   errorMsg = '';
-
+  showNewRow: boolean = false;
+  newRowForm: FormGroup;
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;
@@ -55,9 +58,20 @@ export class PaaComponent implements OnInit {
     private paaService: PaaService,
     private directoryService: DirectoryService,
     private fileService: FileService,
-    private fb: FormBuilder,) {
+    private fb: FormBuilder,
+  ) {
     this.myDateYear = this.datePipe.transform(this.myDateYear, 'yyyy');
+    this.newRowForm = this.fb.group({
+      id: ['', Validators.required],
+      inpuBudgetaire: ['', Validators.required],
+      mntEstimatif: ['', Validators.required],
+      typeMarche: ['', Validators.required],
+      modePassation: ['', Validators.required],
+      objetDepense: ['', Validators.required]
+    });
+
   }
+
 
   ngOnInit(): void {
 
@@ -67,9 +81,16 @@ export class PaaComponent implements OnInit {
     this.fileInfos = this.fileService.getFiles();
   }
 
+
+
+
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
+  onSelectPaa(paa: any) {
+    this.selectedPaaId = paa.id;
+  }
+
 
   upload(gedTbl: any,idElmn:any) {
     this.message = '';
@@ -217,7 +238,6 @@ export class PaaComponent implements OnInit {
       window.open(url);
     }, (error) => {
       console.log(error);
-
     }, () => {
       console.log('completed');
     });
@@ -234,6 +254,54 @@ export class PaaComponent implements OnInit {
     this.dialogDossier.show();
     this.btnValider = false;
   }
+  addNewRow() {
+    if (this.newRowForm.valid) {
+      this.ajouterPaa(); // Appel de la méthode ajouterPaa() pour envoyer les données à l'API
+      console.log('Nouvelle ligne ajoutée :', this.newRowForm.value);
+      this.newRowForm.reset();
+      this.showNewRow = false;
+    }
+  }
+
+  ajouterPaa(): void {
+    const nouveauPaa = {
+      id: this.newRowForm.get('id').value,
+      inpuBudgetaire: this.newRowForm.get('inpuBudgetaire').value,
+      mntEstimatif: this.newRowForm.get('mntEstimatif').value,
+      typeMarche: this.newRowForm.get('typeMarche').value,
+      modePassation: this.newRowForm.get('modePassation').value,
+      objetDepense: this.newRowForm.get('objetDepense').value
+    };
+
+    this.paaService.addPaa(nouveauPaa).subscribe(
+      (response) => {
+        console.log('PAA ajouté avec succès:', response);
+        // Réinitialiser le formulaire ou faire autre chose après l'ajout
+        this.newRowForm.reset();
+        this.showNewRow = false;
+        this.getPaa(); // Actualiser la liste des PAA après l'ajout
+      },
+      (error) => {
+        console.error('Erreur lors de l\'ajout du PAA:', error);
+      }
+    );
+  }
+  supprimerPaa(id: number): void {
+    this.paaService.supprimerPaa(id).subscribe(
+      (response) => {
+        console.log('PAA supprimée avec succès:', response);
+        // Rafraîchir la page après la suppression
+        window.location.reload();
+      },
+      (error) => {
+        window.location.reload();
+        console.error('Erreur lors de la suppression de la PAA:', error);
+      }
+    );
+  }
+
+
+
 
   // public stepper: Stepper;
   formCreationDir: FormGroup;
@@ -266,7 +334,7 @@ export class PaaComponent implements OnInit {
     }
 
   }
-  
+
 
   validerCreationDir() {
     const obj = {reference: this.formCreationDir.get('reference').value, idPaa: this.selectedPaa[0]['id'],fkIduser:4};

@@ -29,6 +29,8 @@ public class ProcedurePaaService {
     @Autowired
     private planRepository paaRepository;
 
+    
+
     public List<ProcedurePaa> findAll() {
         return repository.findAll();
     }
