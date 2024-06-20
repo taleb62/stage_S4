@@ -37,25 +37,22 @@ public class ProcedurePaaController {
         return procedurePaa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping(value =  "/{paaid}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     
-    public ResponseEntity<Object> create(@PathVariable Integer paaid,
-            @RequestBody ProcedureRequest procedureRequest) {
-        plan_anuell_achat paa = paaRepository.findById(paaid)
-                .orElseThrow(() -> new RuntimeException("PAA not found"));
+    public ProcedurePaa create(
+            @RequestBody ProcedurePaa procedureRequest) {
 
-        // List<ProcedurePaa> pro = paa.getProcedures();
-
-        // return pro;
-        service.createProcedure(
-        paaid,
-        procedureRequest.getOrigin(),
-        procedureRequest.getDestinataire(),
-        procedureRequest.getSourceFinanciere(),
-        procedureRequest.getDescription(),
-        procedureRequest.getDeadlineEstime(),
-        procedureRequest.getMontant());
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return service.createProcedure(procedureRequest);
+       
+    //    return service.createProcedure(
+    //     paaid,
+    //     procedureRequest.getOrigin(),
+    //     procedureRequest.getDestinataire(),
+    //     procedureRequest.getSourceFinanciere(),
+    //     procedureRequest.getDescription(),
+    //     procedureRequest.getDeadlineEstime(),
+    //     procedureRequest.getMontant());
+        
 
     }
 

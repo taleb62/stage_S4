@@ -1,5 +1,7 @@
 package org.sid.services;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,9 @@ public class ProcedurePaaService {
 
     @Autowired
     private ProcedureRepository repository;
+
+    @Autowired
+    private ReportService reportService;
 
     @Autowired
     private planRepository paaRepository;
@@ -84,6 +89,5 @@ public class ProcedurePaaService {
         paaRepository.save(paa); // Save the PAA to update the remaining amount
         return repository.save(procedure); // Save the procedure
     }
-
 
 }
