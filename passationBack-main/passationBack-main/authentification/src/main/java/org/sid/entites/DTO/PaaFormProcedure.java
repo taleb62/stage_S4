@@ -1,10 +1,9 @@
 package org.sid.entites.DTO;
 
+import java.sql.Timestamp; // Ajout de l'import
 import java.time.LocalDate; // Ajout de l'import
 
 import lombok.Data;
-
-import java.sql.Timestamp; // Ajout de l'import
 
 @Data
 public
@@ -15,9 +14,18 @@ class PaaFormProcedure{
     private Integer fkidTypeMarche;
     private Integer fkidModPassation;
     private Double mntEstimatif;
+    private Integer montantrestant;
     private LocalDate datePreviLancement;
     private LocalDate datePreviAttribution;
     private Timestamp dateCrationProcedure;
     private String origine;
     private String destinataire;
+
+    public void setMntEstimatif(Double mntEstimatif) {
+        this.mntEstimatif = mntEstimatif;
+    }
+
+    public void updateMontantRestant() {
+        this.montantrestant = this.mntEstimatif.intValue();
+    }
 }

@@ -70,6 +70,7 @@ public class PaaServiceImpl implements PaaService{
         newPaa.setDestinataire(data.getDestinataire());
         newPaa.setEnprocedure(false);
         newPaa.setDosssierCree(false);
+        newPaa.setMontantRestant(data.getMntEstimatif());
         return repo.save(newPaa);
     }
     

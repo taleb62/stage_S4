@@ -12,6 +12,12 @@ export class PaaService {
   getPaa(): Observable<any> {
     return this.http.get(SERVER_URL_BE+ 'Paa/getAllPaaa');
   }
+  addPaa(paa: any): Observable<any> {
+    return this.http.post(SERVER_URL_BE + 'Paa/addPaa', paa);
+  }
+  supprimerPaa(id: number): Observable<any> {
+    return this.http.delete(`http://localhost:8089/api/rest/Paa/deletePaa/${id}`);
+  }
 
   declancchementPost(data:any): Observable<any> {
     return this.http.post(SERVER_URL_BE+ 'Paa/updatePaa',data);
@@ -20,6 +26,8 @@ export class PaaService {
   validateCreateDir(data:any): Observable<any> {
     return this.http.post(SERVER_URL_BE+ 'Dossier/create',data);
   }
+
+
 
 //   generateReport(id:any){
 //     const headers = new HttpHeaders({

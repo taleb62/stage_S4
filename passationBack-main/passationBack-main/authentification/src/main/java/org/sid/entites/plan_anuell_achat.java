@@ -61,4 +61,10 @@ public class plan_anuell_achat implements Serializable {
         @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "paa")
         private List<ProcedurePaa> procedures;
 
+       
+        public void setMontantRestant(Double montantRestant) {
+                this.montantRestant = montantRestant;
+            }
+            
+
 }
