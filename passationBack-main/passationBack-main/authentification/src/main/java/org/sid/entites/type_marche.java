@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "TYPE_MARCHE")
@@ -18,4 +19,6 @@ public class type_marche {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String typeMarche;
+
+    
 }

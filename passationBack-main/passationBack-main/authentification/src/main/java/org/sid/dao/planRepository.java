@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
-@RepositoryRestResource
 public interface planRepository extends JpaRepository<plan_anuell_achat, Integer> {
 
     @Query(value = "select p from plan_anuell_achat p where id=?1")

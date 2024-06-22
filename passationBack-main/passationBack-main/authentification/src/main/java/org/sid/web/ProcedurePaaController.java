@@ -27,7 +27,7 @@ public class ProcedurePaaController {
     @Autowired
     planRepository paaRepository;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProcedurePaa> getAll() {
         return service.findAll();
     }

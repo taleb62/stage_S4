@@ -33,6 +33,9 @@ export class PaaComponent implements OnInit {
   public dialogDossierObj;
   public dialogDossierDetail;
 
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+
   @ViewChild('grid') public grid: GridComponent;
   selectedPaaId: number | null = null;
 
@@ -80,6 +83,20 @@ export class PaaComponent implements OnInit {
     this.initFormCreateDir();
     this.fileInfos = this.fileService.getFiles();
   }
+
+  onFileInputClick(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      console.log('File selected:', file.name);
+      // Ajoutez ici votre code pour gérer le fichier sélectionné
+    }
+  }
+
 
 
 

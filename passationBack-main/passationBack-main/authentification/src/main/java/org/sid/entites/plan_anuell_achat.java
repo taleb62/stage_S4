@@ -41,7 +41,7 @@ public class plan_anuell_achat implements Serializable {
 
         private boolean enprocedure = false;
         private boolean dosssierCree = false;
-        private boolean isvalidated=false;
+        private boolean isvalidated = false;
 
         @ManyToOne
         @JoinColumns({ @JoinColumn(name = "fkidTypeMarche", referencedColumnName = "id", nullable = false, updatable = false, insertable = false) })
@@ -51,6 +51,8 @@ public class plan_anuell_achat implements Serializable {
         @JoinColumns({ @JoinColumn(name = "fkidModPassation", referencedColumnName = "id", nullable = false, updatable = false, insertable = false) })
         private mod_passation modPassation;
 
+
+
         @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         @JoinColumns({
                         @JoinColumn(name = "idElm", referencedColumnName = "id")
@@ -58,13 +60,16 @@ public class plan_anuell_achat implements Serializable {
         })
         private List<FileDB> fileDB;
 
-        @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "paa")
-        private List<ProcedurePaa> procedures;
+        // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "paa")
 
-       
+        // private List<ProcedurePaa> procedures;
+
+        @ManyToOne
+        @JoinColumn(name = "etablissement_id")
+        private Etablissement etablissement;
+
         public void setMontantRestant(Double montantRestant) {
                 this.montantRestant = montantRestant;
-            }
-            
+        }
 
 }
