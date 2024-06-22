@@ -393,6 +393,11 @@
                   {{data.inpuBudgetaire}}
                 </ng-template>
               </e-column>
+              <e-column field='etablissement' headerText='Etablissement' textAlign='Center' width=100>
+                <ng-template #template let-data>
+                  {{data.etablissement.nom}}
+                </ng-template>
+              </e-column>
               <e-column field='mntEstimatif' headerText='Montant' textAlign='Center' width=100>
                 <ng-template #template let-data>
                   {{data.mntEstimatif}}
@@ -415,6 +420,17 @@
                   {{data.objetDepense }}
                 </ng-template>
               </e-column>
+              <e-column field='datePreviAttribution' headerText="Date previe d'attribution" textAlign='Center' width=120>
+                <ng-template #template let-data>
+                  {{data.datePreviAttribution }}
+                </ng-template>
+              </e-column>
+              <e-column field='datePreviLancement' headerText="Date previe de lancement" textAlign='Center' width=120>
+                <ng-template #template let-data>
+                  {{data.datePreviLancement }}
+                </ng-template>
+              </e-column>
+
             </e-columns>
 
           </ejs-grid>

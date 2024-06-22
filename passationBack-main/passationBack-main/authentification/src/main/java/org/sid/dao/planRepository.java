@@ -1,6 +1,7 @@
 package org.sid.dao;
 
 import org.sid.entites.DTO.PaaProcedure;
+import org.sid.entites.Etablissement;
 import org.sid.entites.plan_anuell_achat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,11 +14,15 @@ import java.util.Map;
 
 public interface planRepository extends JpaRepository<plan_anuell_achat, Integer> {
 
+    List<plan_anuell_achat> findByEtablissementId(Integer etablissementId);
+
     @Query(value = "select p from plan_anuell_achat p where id=?1")
     plan_anuell_achat getPaa(Integer id);
 
-    // @Query(value = "select * from plan_anuell_achat p inner join mod_passation m on p.fkid_mod_passation=m.id " +
-    //         "inner join type_marche t on p.fkid_type_marche=t.id inner join files f on p.id = f.id_elm where f.fk_id_tbl = 1;", nativeQuery = true)
+    // @Query(value = "select * from plan_anuell_achat p inner join mod_passation m
+    // on p.fkid_mod_passation=m.id " +
+    // "inner join type_marche t on p.fkid_type_marche=t.id inner join files f on
+    // p.id = f.id_elm where f.fk_id_tbl = 1;", nativeQuery = true)
     // List<Map<String, Object>> getPaas();
 
     // @Query(value="select

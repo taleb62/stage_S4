@@ -92,10 +92,23 @@ export class PaaComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      console.log('File selected:', file.name);
+      // console.log('File selected:', file.name);
+      this.paaService.uploadFile(file).subscribe(
+        response => {
+          this.message = 'File uploaded successfully!';
+        location.reload();
+
+        },
+        error => {
+          this.message = 'Failed to upload file: ' + error;
+        }
+      );
+    } else {
+      this.message = 'Please select a file first.';
+    }
       // Ajoutez ici votre code pour gérer le fichier sélectionné
     }
-  }
+  
 
 
 

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import net.sf.jasperreports.engine.JRException;
 
 @RestController
-@RequestMapping(value = "/api/rest/Paa",produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/rest/Paa", produces = MediaType.APPLICATION_JSON_VALUE)
 
 public class PaaController {
 
@@ -53,6 +53,13 @@ public class PaaController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<plan_anuell_achat>> getPlansByEtablissementId(@PathVariable Integer id) {
+        List<plan_anuell_achat> plans = service.getPlansByEtablissementId(id);
+        return ResponseEntity.ok(plans);
+    }
+
+    @CrossOrigin(origins = "*")
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         logger.info("File received: " + file.getOriginalFilename());
@@ -65,7 +72,7 @@ public class PaaController {
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     @GetMapping("/test")
     public String test() {
         return "hello";

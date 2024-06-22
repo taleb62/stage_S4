@@ -46,6 +46,10 @@ public class PaaServiceImpl implements PaaService {
         // return repo.getAllPaas();
     }
 
+    public List<plan_anuell_achat> getPlansByEtablissementId(Integer etablissementId) {
+        return repo.findByEtablissementId(etablissementId);
+    }
+
     public ArrayNode getListPaa() {
 
         List<Map<String, Object>> paas = repo.getPaas();
@@ -140,21 +144,21 @@ public class PaaServiceImpl implements PaaService {
                 paa.setDatePreviLancement(datePreviLancement);
                 paa.setDatePreviAttribution(datePreviAttribution);
                 paa.setEtablissement(inputBudgetaire.getEtablissement());
-                paa.setModPassation(inputBudgetaire.getTypeSelection());
-                paa.setTypeMarche(inputBudgetaire.getTypeMarcher());
+                paa.setFkidModPassation(inputBudgetaire.getTypeSelection().getId());
+                paa.setFkidTypeMarche(inputBudgetaire.getTypeMarcher().getId());
 
                 // Ajoutez d'autres colonnes selon votre table
                 repo.save(paa);
             } else {
-                return new ResponseEntity<String>("l'input budgetaire est invalid" ,
+                return new ResponseEntity<String>("l'input budgetaire est invalid",
                         HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
         }
 
         workbook.close();
-        return new ResponseEntity<String>("PAA ajouté " ,
-                        HttpStatus.CREATED);
+        return new ResponseEntity<String>("PAA ajouté ",
+                HttpStatus.CREATED);
     }
 
     private boolean isRowEmpty(Row row) {

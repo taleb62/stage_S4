@@ -9,6 +9,7 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import { AccueilComponent } from './pages/saisie/pages/accueil/accueil.component';
 import {PaaComponent} from "./pages/saisie/pages/paa/paa/paa.component";
 import {DirectoryComponent} from "./pages/saisie/pages/directory/directory.component";
+import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/etablissemnt-paa.component';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: "Accueil", component: AccueilComponent, canActivate: [AuthGuardService] },
   { path: "paa", component: PaaComponent, canActivate: [AuthGuardService] },
   { path: "directory", component: DirectoryComponent, canActivate: [AuthGuardService] },
+  { path: "etablissementpaa", component: EtablissemntPaaComponent, canActivate: [AuthGuardService] },
 
   // {path: '', redirectTo: 'Accueil', pathMatch: 'full',canActivate: [AuthGuardService]},
   {path: '', redirectTo: 'login', pathMatch: 'full',},

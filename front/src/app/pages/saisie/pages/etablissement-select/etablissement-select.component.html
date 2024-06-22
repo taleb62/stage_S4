@@ -1,0 +1,28 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-3">
+          <!-- <div class="col-sm-4">
+          </div> -->
+          <div class="col-sm-4">
+            <ol class="breadcrumb float-sm-right">
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <ng-select
+            [items]="items"
+            bindLabel="displayName"
+            bindValue="id"
+            [(ngModel)]="selectedItem"
+            placeholder="Sélectionnez un établissement">
+        </ng-select>
+    </section>
+    <section class="content">
+      <!-- <p>Élément sélectionné : {{ selectedItem?.name }}</p> -->
+    </section>
+  </div>
+  

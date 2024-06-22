@@ -110,6 +110,8 @@ import {PaaComponent} from './pages/saisie/pages/paa/paa/paa.component';
 import {TableEj2Component} from './components/table-ej2/table-ej2.component';
 import {PageContentHeaderComponent} from './components/page-content-header/page-content-header.component';
 import {DirectoryComponent} from './pages/saisie/pages/directory/directory.component';
+import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/etablissemnt-paa.component';
+import { EtablissementSelectComponent } from './pages/saisie/pages/etablissement-select/etablissement-select.component';
 
 
 @NgModule({
@@ -125,6 +127,8 @@ import {DirectoryComponent} from './pages/saisie/pages/directory/directory.compo
     TableEj2Component,
     PageContentHeaderComponent,
     DirectoryComponent,
+    EtablissemntPaaComponent,
+    EtablissementSelectComponent,
   ],
   imports: [
     ChartModule,
