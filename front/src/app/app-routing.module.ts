@@ -10,23 +10,19 @@ import { AccueilComponent } from './pages/saisie/pages/accueil/accueil.component
 import {PaaComponent} from "./pages/saisie/pages/paa/paa/paa.component";
 import {DirectoryComponent} from "./pages/saisie/pages/directory/directory.component";
 import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/etablissemnt-paa.component';
+import { ProcedureComponent } from './procedure/procedure.component';
 
 
 
 const routes: Routes = [
   {path: 'sidebar', component: DefaultSidebarComponent,canActivate: [AuthGuardService]},
-  // {path: 'sidebar-menu', component: SidebarMenuComponent},
   {path: 'login', component: LoginComponent,canActivate: [AuthGuardService]},
   { path: 'register', component : RegisterComponent,canActivate: [AuthGuardService] },
-
- // { path: 'traces', component : TracesComponent, },
-
   { path: "Accueil", component: AccueilComponent, canActivate: [AuthGuardService] },
   { path: "paa", component: PaaComponent, canActivate: [AuthGuardService] },
   { path: "directory", component: DirectoryComponent, canActivate: [AuthGuardService] },
   { path: "etablissementpaa", component: EtablissemntPaaComponent, canActivate: [AuthGuardService] },
-
-  // {path: '', redirectTo: 'Accueil', pathMatch: 'full',canActivate: [AuthGuardService]},
+  { path: 'procedure-list', component: ProcedureComponent, canActivate: [AuthGuardService] },
   {path: '', redirectTo: 'login', pathMatch: 'full',},
 
 //
