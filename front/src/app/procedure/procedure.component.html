@@ -1,0 +1,38 @@
+
+<div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>LISTES DES PROCEDURES</h1>
+          </div>
+        </div>
+      </div> 
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Origin</th>
+              <th>Destinataire</th>
+              <th>Source Financière</th>
+              <th>Description</th>
+              <th>Deadline Estimé</th>
+              <th>Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let procedure of procedures">
+              <td>{{ procedure.origin }}</td>
+              <td>{{ procedure.destinataire }}</td>
+              <td>{{ procedure.sourceFinanciere }}</td>
+              <td>{{ procedure.description }}</td>
+              <td>{{ procedure.deadlineEstime | date }}</td>
+              <td>{{ procedure.montant }}</td>
+             
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  

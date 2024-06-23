@@ -113,6 +113,7 @@ import {DirectoryComponent} from './pages/saisie/pages/directory/directory.compo
 import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/etablissemnt-paa.component';
 import { EtablissementSelectComponent } from './pages/saisie/pages/etablissement-select/etablissement-select.component';
 import { OffcanvasComponent } from './components/offcanvas/offcanvas.component';
+import { ProcedureComponent } from './procedure/procedure.component';
 
 
 @NgModule({
@@ -131,6 +132,7 @@ import { OffcanvasComponent } from './components/offcanvas/offcanvas.component';
     EtablissemntPaaComponent,
     EtablissementSelectComponent,
     OffcanvasComponent,
+    ProcedureComponent,
   ],
   imports: [
     ChartModule,
