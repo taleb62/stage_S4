@@ -14,9 +14,18 @@ export class PaaService {
   getPaa(): Observable<any> {
     return this.http.get(SERVER_URL_BE+ 'Paa/getAllPaaa');
   }
+  getPaaOne(id:any): Observable<any> {
+    return this.http.get(SERVER_URL_BE+ `Paa/getPaaa/${id}`);
+  }
   
   addPaa(paa: any): Observable<any> {
     return this.http.post(SERVER_URL_BE + 'Paa/addPaa', paa);
+  }
+  modifierPaa(id: number, paaData: any): Observable<any> {
+    return this.http.put(`${SERVER_URL_BE}Paa/modifier/${id}`, paaData);
+  }
+  validerPaa(id: any): Observable<any> {
+    return this.http.put(SERVER_URL_BE + `Paa/valider/${id}`, id);
   }
   supprimerPaa(id: number): Observable<any> {
     return this.http.delete(`http://localhost:8089/api/rest/Paa/deletePaa/${id}`);

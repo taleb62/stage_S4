@@ -10,13 +10,107 @@
       </div>
     </div>
   </section>
+  
   <section class="contentSection">
     <div class="container-fluid">
-      <button class="btn btn-sm btn-outline-success" (click)="onFileInputClick()">
-        <i class="fas fa-upload"></i> Importer
-      </button>
-      <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept=".xlsx, .xls">
+
+
+      <div class="row">
+        <div class="col-auto">
+            <button class="btn btn-sm btn-outline-success" (click)="onFileInputClick()">
+                <i class="fas fa-upload"></i> Importer
+            </button>
+            <input type="file" #fileInput style="display: none;" (change)="onFileSelected($event)" accept=".xlsx, .xls">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-sm btn-outline-primary" (click)="showNewRow = !showNewRow">
+                <span class="fas fa-plus"></span> Ajouter
+            </button>
+        </div>
+        
+
+
+        <div class="col-auto mt-4">
+          <div *ngIf="showNewRow" class="mt-2" >
+            <form [formGroup]="newRowForm" (ngSubmit)="addNewRow()" class="container">
+
+              <div class="row g-2">
+                
+                <div class="col-md-2">
+                  <input formControlName="inpuBudgetaire" type="text" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Imputation">
+                </div>
+                <div class="col-md-2">
+                  <input formControlName="mntEstimatif" type="text" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Montant">
+                </div>
+                
+                <div class="col-md-2">
+                  <input formControlName="objetDepense" type="text" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Objet Depense">
+                </div>
+                <div class="col-md-2">
+                  <input formControlName="datePreviLancement" type="date" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="">
+                </div>
+                <div class="col-md-2">
+                  <input formControlName="datePreviAttribution" type="date" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Objet Depense">
+                </div>
+                <div class="col-md-2 text-center">
+                  <button [disabled]="newRowForm.invalid" class="btn btn-success btn-sm" type="submit"><i class="bi bi-check2"></i>Confirmer</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div *ngIf="modifierRow " class="mt-2" >
+            <form [formGroup]="modifierForm" (ngSubmit)="addNewRow()" class="container">
+
+              <div class="row g-2">
+                
+                <div class="col-md-2">
+                  <input formControlName="inpuBudgetaire" type="text" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Imputation">
+                </div>
+                  <input formControlName="id" type="hidden" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="id">
+ 
+                <div class="col-md-2">
+                  <input formControlName="mntEstimatif" type="text" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Montant">
+                </div>
+                
+                <div class="col-md-2">
+                  <input formControlName="objetDepense" type="text" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Objet Depense">
+                </div>
+                <div class="col-md-2">
+                  <input formControlName="datePreviLancement" type="date" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="">
+                </div>
+                <div class="col-md-2">
+                  <input formControlName="datePreviAttribution" type="date" class="form-control text-center form-control-xs form-control-sm"
+                    placeholder="Objet Depense">
+                </div>
+                <div class="col-md-2 text-center">
+                  <button [disabled]="modifierForm.invalid" (click)="modifierPaa(selectedPaa[0]['id'])" class="btn btn-success btn-sm" type="submit"><i class="bi bi-check2"></i>Modifier</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+    </div>
+    
+    
       
+      <!-- app.component.html -->
+      <app-offcanvas
+      [detaillePaa]="detaille"
+      ></app-offcanvas>
+
+      
+
       
       <div class="row">
         <div #container class='root-container'></div>
@@ -154,25 +248,52 @@
           </ng-template>
 
         </ejs-dialog>
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 mt-4 text-center">
           <!--          <span *ngIf=" selectedPaa != null"> {{selectedPaa[0]['enprocedure'] | json}}</span>-->
 
           <div *ngIf="selectedPaa!=null">
 
-            <button [hidden]="selectedPaa[0]['enprocedure']===true" class="btn btn-sm btn-outline-primary"
-                    (click)="declancherProcedure($event)"
-                    type="button"><span
-              class="fas fa-check-square"></span>
-              Declancher la procedure
+            <button [hidden]="selectedPaa[0]['enprocedure']"
+            *ngIf="selectedPaa[0]['isvalidated']===true"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="declancherProcedure($event)"
+                  type="button">
+              <span class="fas fa-check-square"></span>
+              Déclencher la procédure
+          </button>
+            <button 
+            *ngIf="selectedPaa[0]['isvalidated']===false"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="validerPaa(selectedPaa[0]['id'])"
+                  type="button">
+              <span class="fas fa-check-square"></span>
+              valider
+          </button>
 
-            </button>
 
             <button [hidden]="selectedPaa[0]['enprocedure']===true" *ngIf="selectedPaa && selectedPaa.length > 0 && 'enProcedure' in selectedPaa[0]"
               (click)="supprimerPaa(selectedPaa[0]['id'])"
               class="btn btn-sm btn-outline-danger ml-4"
               type="button">
-        Supprimer
-      </button>
+              Supprimer
+            </button>
+            <button [hidden]="selectedPaa[0]['enprocedure']===true" *ngIf="selectedPaa && selectedPaa.length > 0 "
+              (click)="modifierRow = !modifierRow"
+              class="btn btn-sm btn-outline-primary ml-4"
+              type="button">
+              Modifier
+            </button>
+
+
+
+           
+            <button
+            
+            [hidden]="selectedPaa[0]['enprocedure']===true" *ngIf="selectedPaa && selectedPaa.length > 0 && 'enProcedure' in selectedPaa[0]"
+             class="btn btn-sm btn-outline-info ml-4" (click)="toggleOffcanvas(selectedPaa[0]['id'])">
+             <i class="bi bi-eye"></i>
+             Detaille
+            </button>
 
 
 
@@ -364,23 +485,40 @@
                     </table>
 
                   </div>
-                  <div class="col-2"></div>
+                  <!-- <div class="col-2">
+                    
+                  </div> -->
+
                 </div>
               </div>
             </div>
+            
           </ng-template>
         </ejs-dialog>
 
+
+
+
+
+
+
+
+
+
         <div class="col-md-12">
-          <ejs-grid
+          <div class="row">
+            <ejs-grid
             (rowSelected)='rowSelected($event)'
             (rowDeselecting)='rowDeselected($event)'
             [allowSelection]="true"
             #grid
             [dataSource]='data'
             id="gridcomp" allowSorting='true'
-            height=360
+            height=auto
             gridLines="Both"
+            [pageSettings]="pageSettings"
+            allowSorting="true"
+            allowPaging="true"
           >
             <e-columns>
               <e-column field='id' headerText='Code' textAlign='Center' width=50>
@@ -393,26 +531,14 @@
                   {{data.inpuBudgetaire}}
                 </ng-template>
               </e-column>
-              <e-column field='etablissement' headerText='Etablissement' textAlign='Center' width=100>
-                <ng-template #template let-data>
-                  {{data.etablissement.nom}}
-                </ng-template>
-              </e-column>
+             
               <e-column field='mntEstimatif' headerText='Montant' textAlign='Center' width=100>
                 <ng-template #template let-data>
-                  {{data.mntEstimatif}}
+                  {{data.montantRestant}}
+                  MRU
                 </ng-template>
               </e-column>
-              <e-column field='typeMarche' headerText='Type Marché' textAlign='Center' width=120>
-                <ng-template #template let-data>
-                  {{data.typeMarche ? data.typeMarche.typeMarche : ''}}
-                </ng-template>
-              </e-column>
-              <e-column field='modePassation' headerText='Mode de passation' textAlign='Center' width=120>
-                <ng-template #template let-data>
-                  {{data.modPassation ? data.modPassation.modePassation : ''}}
-                </ng-template>
-              </e-column>
+              
 
 
               <e-column field='objetDepense' headerText='objet Depense' textAlign='Center' width=120>
@@ -430,51 +556,17 @@
                   {{data.datePreviLancement }}
                 </ng-template>
               </e-column>
+              
+              
 
+              
+              
+              
             </e-columns>
-
+           
           </ejs-grid>
-<!-- Ajout du bouton -->
-<div class="mt-2 text-center">
-  <button class="btn btn-outline-primary" (click)="showNewRow = !showNewRow">
-    <span class="fas fa-plus"></span> Ajouter
-  </button>
-</div>
+          </div>
 
-<!-- Affichage du formulaire -->
-<div *ngIf="showNewRow" class="mt-2">
-  <form [formGroup]="newRowForm" (ngSubmit)="addNewRow()" class="container">
-    <div class="row g-2">
-      <div class="col-md-2">
-        <input formControlName="id" type="text" class="form-control text-center form-control-xs form-control-sm"
-          placeholder="Code">
-      </div>
-      <div class="col-md-2">
-        <input formControlName="inpuBudgetaire" type="text" class="form-control text-center form-control-xs form-control-sm"
-          placeholder="Imputation">
-      </div>
-      <div class="col-md-2">
-        <input formControlName="mntEstimatif" type="text" class="form-control text-center form-control-xs form-control-sm"
-          placeholder="Montant">
-      </div>
-      <div class="col-md-2">
-        <input formControlName="typeMarche" type="text" class="form-control text-center form-control-xs form-control-sm"
-          placeholder="Type Marché">
-      </div>
-      <div class="col-md-2">
-        <input formControlName="modePassation" type="text" class="form-control text-center form-control-xs form-control-sm"
-          placeholder="Mode de passation">
-      </div>
-      <div class="col-md-2">
-        <input formControlName="objetDepense" type="text" class="form-control text-center form-control-xs form-control-sm"
-          placeholder="Objet Depense">
-      </div>
-    </div>
-    <div class="mt-2 text-center">
-      <button [disabled]="newRowForm.invalid" class="btn btn-success btn-sm" type="submit">Valider</button>
-    </div>
-  </form>
-</div>
 
         </div>
       </div>

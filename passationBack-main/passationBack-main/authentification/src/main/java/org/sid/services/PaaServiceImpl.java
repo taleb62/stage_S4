@@ -46,6 +46,10 @@ public class PaaServiceImpl implements PaaService {
         // return repo.getAllPaas();
     }
 
+    public Optional<plan_anuell_achat> getPaa(Integer id) {
+        return repo.findById(id);
+    }
+
     public List<plan_anuell_achat> getPlansByEtablissementId(Integer etablissementId) {
         return repo.findByEtablissementId(etablissementId);
     }
@@ -76,24 +80,46 @@ public class PaaServiceImpl implements PaaService {
         plan_anuell_achat paa1 = repo.getPaa(id);
         return paa1;
     }
+    public plan_anuell_achat modifierPaa(Integer id,PaaFormProcedure Paa ) {
+        plan_anuell_achat paa = repo.getPaa(id);
+        if (paa == null)
+            throw new RuntimeException("le PAA non trouvé !");
+        paa.setObjetDepense(Paa.getObjetDepense());
+        paa.setInpuBudgetaire(Paa.getInpuBudgetaire());
+        paa.setMntEstimatif(Paa.getMntEstimatif());
+        if (paa.getMntEstimatif()>paa.getMontantRestant()) {
+            paa.setMontantRestant(Paa.getMntEstimatif() - paa.getMontantRestant());
+        } else {
+            paa.setMontantRestant(Paa.getMntEstimatif());
+            
+        }
+        paa.setDatePreviAttribution(Paa.getDatePreviAttribution());
+        paa.setDatePreviLancement(Paa.getDatePreviLancement());
+        repo.save(paa);
+        return paa;
+    }
 
     @Override
     public plan_anuell_achat addPaa(PaaFormProcedure data) {
-        plan_anuell_achat newPaa = new plan_anuell_achat();
-        newPaa.setObjetDepense(data.getObjetDepense());
-        newPaa.setInpuBudgetaire(data.getInpuBudgetaire());
-        newPaa.setFkidTypeMarche(data.getFkidTypeMarche());
-        newPaa.setFkidModPassation(data.getFkidModPassation());
-        newPaa.setMntEstimatif(data.getMntEstimatif());
-        newPaa.setDatePreviLancement(data.getDatePreviLancement());
-        newPaa.setDatePreviAttribution(data.getDatePreviAttribution());
-        newPaa.setDateCrationProcedure(data.getDateCrationProcedure());
-        newPaa.setOrigine(data.getOrigine());
-        newPaa.setDestinataire(data.getDestinataire());
-        newPaa.setEnprocedure(false);
-        newPaa.setDosssierCree(false);
-        newPaa.setMontantRestant(data.getMntEstimatif());
-        return repo.save(newPaa);
+
+        InputBudgetaire inputBudgetaire = input.findByBudgetNumber(data.getInpuBudgetaire());
+
+        if (inputBudgetaire != null) {
+            
+            plan_anuell_achat newPaa = new plan_anuell_achat();
+            newPaa.setObjetDepense(data.getObjetDepense());
+            newPaa.setInpuBudgetaire(data.getInpuBudgetaire());
+            newPaa.setFkidTypeMarche(inputBudgetaire.getTypeMarcher().getId());
+            newPaa.setFkidModPassation(inputBudgetaire.getTypeSelection().getId());
+            newPaa.setMntEstimatif(data.getMntEstimatif());
+            newPaa.setDatePreviLancement(data.getDatePreviLancement());
+            newPaa.setDatePreviAttribution(data.getDatePreviAttribution());
+            newPaa.setDateCrationProcedure(data.getDateCrationProcedure());
+            newPaa.setMontantRestant(data.getMntEstimatif());
+            return repo.save(newPaa);
+        }
+        return null;
+
     }
 
     public plan_anuell_achat validatePlanAnuellAchat(Integer id) {
@@ -213,6 +239,8 @@ public class PaaServiceImpl implements PaaService {
             return null;
         }
     }
+
+    
 
     @Override
     public void deletePaa(Integer id) {

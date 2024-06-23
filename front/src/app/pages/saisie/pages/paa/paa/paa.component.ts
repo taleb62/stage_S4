@@ -12,6 +12,7 @@ import {DatePipe} from '@angular/common';
 import {GED_TBL, REPORTS} from '../../../../../enums/constants';
 import {DirectoryService} from "../../../../../services/directory.service";
 import {saveAs} from "file-saver";
+import { OffcanvasComponent } from 'src/app/components/offcanvas/offcanvas.component';
 @Component({
   selector: 'app-paa',
   templateUrl: './paa.component.html',
@@ -32,6 +33,8 @@ export class PaaComponent implements OnInit {
   public DialogObj;
   public dialogDossierObj;
   public dialogDossierDetail;
+  public pageSettings: Object;
+
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
@@ -45,7 +48,9 @@ export class PaaComponent implements OnInit {
   selectedPaa: Object[] = null;
   errorMsg = '';
   showNewRow: boolean = false;
+  modifierRow: boolean = false;
   newRowForm: FormGroup;
+  modifierForm: FormGroup;
   selectedFiles: FileList;
   currentFile: File;
   progress = 0;
@@ -56,21 +61,34 @@ export class PaaComponent implements OnInit {
   idDir: any;
   PaaFile: any;
 
+  detaille: any;
+
+  paaId: any;
+
   constructor(
     private datePipe: DatePipe,
     private paaService: PaaService,
     private directoryService: DirectoryService,
     private fileService: FileService,
     private fb: FormBuilder,
+    
   ) {
+    this.pageSettings = { pageSize: 10 };
     this.myDateYear = this.datePipe.transform(this.myDateYear, 'yyyy');
     this.newRowForm = this.fb.group({
+      inpuBudgetaire: [this.paaId, Validators.required],
+      mntEstimatif: ['', Validators.required],
+      objetDepense: ['', Validators.required],
+      datePreviLancement: ['', Validators.required],
+      datePreviAttribution: ['', Validators.required]
+    });
+    this.modifierForm = this.fb.group({
       id: ['', Validators.required],
       inpuBudgetaire: ['', Validators.required],
       mntEstimatif: ['', Validators.required],
-      typeMarche: ['', Validators.required],
-      modePassation: ['', Validators.required],
-      objetDepense: ['', Validators.required]
+      objetDepense: ['', Validators.required],
+      datePreviLancement: ['', Validators.required],
+      datePreviAttribution: ['', Validators.required]
     });
 
   }
@@ -82,6 +100,21 @@ export class PaaComponent implements OnInit {
     this.initFormDeclanchement();
     this.initFormCreateDir();
     this.fileInfos = this.fileService.getFiles();
+    
+  }
+
+  @ViewChild(OffcanvasComponent) offcanvas: OffcanvasComponent;
+  // detaille(id: any) {
+  //   this.offcanvas.detaille(id);
+  // }
+  
+
+  toggleOffcanvas(id:any) {
+    this.offcanvas.toggleOffcanvas();
+    console.log("l'id du paa : " + id);
+    this.offcanvas.detaillePaa(id);
+    
+    
   }
 
   onFileInputClick(): void {
@@ -196,6 +229,16 @@ export class PaaComponent implements OnInit {
     });
   }
 
+  validerPaa(id: any) {
+    const res = this.paaService.validerPaa(id).subscribe({
+
+      next: () => {
+        window.location.reload();
+      }
+
+    });
+  }
+
 
   private cancelClick(): void {
     this.DialogObj.hide();
@@ -241,6 +284,19 @@ export class PaaComponent implements OnInit {
   rowSelected(args: RowSelectEventArgs) {
     console.log(this.grid.getSelectedRecords())
     this.selectedPaa = this.grid.getSelectedRecords();
+    console.log("le paa : " + this.selectedPaa[0]["id"]);
+    this.paaId = this.selectedPaa[0]["id"];
+
+// Exemple pour mettre à jour un seul champ du formulaire
+  this.modifierForm.get('id')?.patchValue(this.selectedPaa[0]["id"]);
+  this.modifierForm.get('inpuBudgetaire')?.patchValue(this.selectedPaa[0]["inpuBudgetaire"]);
+  this.modifierForm.get('mntEstimatif')?.patchValue(this.selectedPaa[0]["mntEstimatif"]);
+  this.modifierForm.get('objetDepense')?.patchValue(this.selectedPaa[0]["objetDepense"]);
+  this.modifierForm.get('datePreviLancement')?.patchValue(this.selectedPaa[0]["datePreviLancement"]);
+  this.modifierForm.get('datePreviAttribution')?.patchValue(this.selectedPaa[0]["datePreviAttribution"]);
+
+    
+
     this.initFormCreateDir();
   }
 
@@ -293,14 +349,36 @@ export class PaaComponent implements OnInit {
     }
   }
 
+  modifierPaa(id:any) {
+
+    console.log("le paa a modifier : " + id);
+    
+    const nouveauPaa = {
+      inpuBudgetaire: this.modifierForm.get('inpuBudgetaire').value,
+      mntEstimatif: this.modifierForm.get('mntEstimatif').value,
+      objetDepense: this.modifierForm.get('objetDepense').value,
+      datePreviLancement: this.modifierForm.get('datePreviLancement').value,
+      datePreviAttribution: this.modifierForm.get('datePreviAttribution').value
+    };
+
+    this.paaService.modifierPaa(id, nouveauPaa).subscribe({
+
+      next: (value) => {
+        console.log("modifier avec succee");
+        window.location.reload();
+      }
+      
+    });
+    
+  }
+
   ajouterPaa(): void {
     const nouveauPaa = {
-      id: this.newRowForm.get('id').value,
       inpuBudgetaire: this.newRowForm.get('inpuBudgetaire').value,
       mntEstimatif: this.newRowForm.get('mntEstimatif').value,
-      typeMarche: this.newRowForm.get('typeMarche').value,
-      modePassation: this.newRowForm.get('modePassation').value,
-      objetDepense: this.newRowForm.get('objetDepense').value
+      objetDepense: this.newRowForm.get('objetDepense').value,
+      datePreviLancement: this.newRowForm.get('datePreviLancement').value,
+      datePreviAttribution: this.newRowForm.get('datePreviAttribution').value
     };
 
     this.paaService.addPaa(nouveauPaa).subscribe(

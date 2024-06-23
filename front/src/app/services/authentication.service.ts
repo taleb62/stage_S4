@@ -77,7 +77,7 @@ export class AuthenticationService implements OnInit {
     
   }
   isAdmin(){
-    // return this.roles.indexOf('ADMINISTRATEUR')>=0;
+    return this.roles.indexOf('ADMINISTRATEUR')>=0;
     // return this.roles.indexOf('SAISIE')>=0;
     // return this.roles.indexOf('CONSULTATION')>=0;
     // return this.roles.indexOf('VALIDATION')>=0;

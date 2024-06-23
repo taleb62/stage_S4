@@ -112,6 +112,7 @@ import {PageContentHeaderComponent} from './components/page-content-header/page-
 import {DirectoryComponent} from './pages/saisie/pages/directory/directory.component';
 import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/etablissemnt-paa.component';
 import { EtablissementSelectComponent } from './pages/saisie/pages/etablissement-select/etablissement-select.component';
+import { OffcanvasComponent } from './components/offcanvas/offcanvas.component';
 
 
 @NgModule({
@@ -129,6 +130,7 @@ import { EtablissementSelectComponent } from './pages/saisie/pages/etablissement
     DirectoryComponent,
     EtablissemntPaaComponent,
     EtablissementSelectComponent,
+    OffcanvasComponent,
   ],
   imports: [
     ChartModule,
@@ -215,6 +217,7 @@ import { EtablissementSelectComponent } from './pages/saisie/pages/etablissement
     ColumnMenuService,
     FilterService,
     VirtualScrollService,
+    LoginComponent,
     AggregateService],
   bootstrap: [AppComponent]
 })

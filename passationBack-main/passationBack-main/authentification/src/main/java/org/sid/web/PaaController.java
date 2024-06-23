@@ -2,6 +2,7 @@ package org.sid.web;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,11 @@ public class PaaController {
     public List<plan_anuell_achat> getAllPaaa() {
         return service.getAllPaa();
     }
+    @CrossOrigin(origins = "*")
+    @GetMapping(value = "/getPaaa/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Optional<plan_anuell_achat> getPaaa(@PathVariable Integer id) {
+        return service.getPaa(id);
+    }
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -88,6 +94,12 @@ public class PaaController {
     public plan_anuell_achat updatePaa(@RequestBody PaaFormProcedure data) {
         System.out.println("**********************************" + data);
         return paaService.updatePaa(data.getId(), data.getOrigine(), data.getDestinataire());
+    }
+    @CrossOrigin(origins = "*")
+    @PutMapping("/modifier/{id}")
+    public plan_anuell_achat modifierPaa(@PathVariable Integer id,@RequestBody PaaFormProcedure data) {
+        System.out.println("**********************************" + data);
+        return service.modifierPaa(id, data);
     }
 
     @CrossOrigin(origins = "*")

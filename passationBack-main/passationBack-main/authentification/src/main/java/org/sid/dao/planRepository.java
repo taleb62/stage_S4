@@ -53,4 +53,5 @@ public interface planRepository extends JpaRepository<plan_anuell_achat, Integer
     @Query(value = "update plan_anuell_achat set dosssierCree=?1 where id=?2")
     void updatePaaDossier(Boolean dosssierCree, Integer id);
 
+
 }
