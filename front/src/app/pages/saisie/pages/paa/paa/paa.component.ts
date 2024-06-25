@@ -5,7 +5,7 @@ import {PaaService} from "../../../../../services/paa.service";
 import {DialogComponent, PositionDataModel} from '@syncfusion/ej2-angular-popups';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FileService} from "../../../../../services/file.service";
-import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpEventType, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 // import Stepper from 'bs-stepper';
 import {DatePipe} from '@angular/common';
@@ -13,6 +13,9 @@ import {GED_TBL, REPORTS} from '../../../../../enums/constants';
 import {DirectoryService} from "../../../../../services/directory.service";
 import {saveAs} from "file-saver";
 import { OffcanvasComponent } from 'src/app/components/offcanvas/offcanvas.component';
+import { EtablissementSelectComponent } from '../../etablissement-select/etablissement-select.component';
+import { EtablissementService } from 'src/app/services/etablissement.service';
+import { SERVER_URL_BE } from 'src/environments/environment';
 @Component({
   selector: 'app-paa',
   templateUrl: './paa.component.html',
@@ -55,6 +58,7 @@ export class PaaComponent implements OnInit {
   currentFile: File;
   progress = 0;
   message = '';
+  selectedItem: any;
 
   fileInfos: Observable<any>;
   btnValider=false;
@@ -64,6 +68,7 @@ export class PaaComponent implements OnInit {
   detaille: any;
 
   paaId: any;
+  items: any;
 
   constructor(
     private datePipe: DatePipe,
@@ -71,6 +76,8 @@ export class PaaComponent implements OnInit {
     private directoryService: DirectoryService,
     private fileService: FileService,
     private fb: FormBuilder,
+    private etablissementService: EtablissementService,
+    private http: HttpClient
     
   ) {
     this.pageSettings = { pageSize: 10 };
@@ -100,10 +107,16 @@ export class PaaComponent implements OnInit {
     this.initFormDeclanchement();
     this.initFormCreateDir();
     this.fileInfos = this.fileService.getFiles();
+      this.loadEtablissements();
+    
+
+    // console.log(this.etablisementSelect.selected());
+
     
   }
 
   @ViewChild(OffcanvasComponent) offcanvas: OffcanvasComponent;
+  @ViewChild(EtablissementSelectComponent) etablisementSelect: EtablissementSelectComponent;
   // detaille(id: any) {
   //   this.offcanvas.detaille(id);
   // }
@@ -129,7 +142,7 @@ export class PaaComponent implements OnInit {
       this.paaService.uploadFile(file).subscribe(
         response => {
           this.message = 'File uploaded successfully!';
-        location.reload();
+          this.getPaa();
 
         },
         error => {
@@ -143,6 +156,9 @@ export class PaaComponent implements OnInit {
     }
   
 
+    onDataBound() {
+      this.grid.groupModule.collapseAll();
+    }
 
 
 
@@ -229,11 +245,52 @@ export class PaaComponent implements OnInit {
     });
   }
 
+  onSelect(item: any): void {
+    if (item) {
+      const token = localStorage.getItem('token');
+
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      this.http.get(`http://localhost:8089/api/rest/Paa/${item.id}`,{headers}).subscribe({
+        // this.paaData = data;
+        next: (value) => {
+          this.data = value;
+
+        },
+        error: () => {
+          
+          this.data = "pas des donnees";
+        }
+      });
+    }
+
+    // this.itemselected = item;
+    // console.log(item);
+    
+    
+  }
+
+  // selected() {
+  //   return this.itemselected;
+  // }
+
+  loadEtablissements(): void {
+    this.etablissementService.getEtablissements().subscribe(data => {
+      // Ajouter une propriété combinée pour afficher à la fois l'ID et le nom
+      this.items = data.map((item: any) => ({
+        ...item,
+        displayName: `${item.id}  | ${item.nom} `
+      }));
+      console.log("Les établissements :", this.items);
+    });
+  }
+
   validerPaa(id: any) {
     const res = this.paaService.validerPaa(id).subscribe({
 
       next: () => {
-        window.location.reload();
+        // Rafraîchir la page après la suppression
+        this.getPaa(); // Actualiser la liste des PAA après l'ajout
       }
 
     });
@@ -365,7 +422,7 @@ export class PaaComponent implements OnInit {
 
       next: (value) => {
         console.log("modifier avec succee");
-        window.location.reload();
+        this.getPaa(); // Actualiser la liste des PAA après l'ajout
       }
       
     });
@@ -399,10 +456,12 @@ export class PaaComponent implements OnInit {
       (response) => {
         console.log('PAA supprimée avec succès:', response);
         // Rafraîchir la page après la suppression
-        window.location.reload();
+        this.getPaa(); // Actualiser la liste des PAA après l'ajout
       },
       (error) => {
-        window.location.reload();
+                // Rafraîchir la page après la suppression
+       this.getPaa(); // Actualiser la liste des PAA après l'ajout
+
         console.error('Erreur lors de la suppression de la PAA:', error);
       }
     );

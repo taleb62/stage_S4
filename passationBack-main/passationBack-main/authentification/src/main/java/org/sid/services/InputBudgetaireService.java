@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class InputBudgetaireService {
@@ -34,8 +35,9 @@ public class InputBudgetaireService {
 
                 mod_passation typeSelection = modeRepository.findById(typeSelectionid)
                                 .orElseThrow(() -> new IllegalArgumentException("Type de selection not found"));
-                                
-                type_marche typeMarche = typeMarcher.findById(typeMarcherid).orElseThrow(() -> new IllegalArgumentException("Type de marche not found"));
+
+                type_marche typeMarche = typeMarcher.findById(typeMarcherid)
+                                .orElseThrow(() -> new IllegalArgumentException("Type de marche not found"));
 
                 InputBudgetaire lastInput = inputBudgetaireRepository
                                 .findTopByYearAndTypeSelectionOrderByUniqueIdDesc(currentYear, typeSelection);
@@ -50,5 +52,12 @@ public class InputBudgetaireService {
                 InputBudgetaire inputBudgetaire = new InputBudgetaire(budgetNumber, currentYear,
                                 newUniqueId, LocalDate.now(), etablissement, typeSelection, typeMarche);
                 return inputBudgetaireRepository.save(inputBudgetaire);
+        }
+
+        public List<InputBudgetaire> getInputs() {
+                return inputBudgetaireRepository.findAll();
+        }
+        public void deleteInput(Long id) {
+                 inputBudgetaireRepository.deleteById(id);
         }
 }

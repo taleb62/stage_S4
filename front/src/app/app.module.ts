@@ -114,6 +114,8 @@ import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/
 import { EtablissementSelectComponent } from './pages/saisie/pages/etablissement-select/etablissement-select.component';
 import { OffcanvasComponent } from './components/offcanvas/offcanvas.component';
 import { ProcedureComponent } from './procedure/procedure.component';
+import { EtablissementComponent } from './pages/saisie/pages/etablissement/etablissement.component';
+import { InputBudgetaireComponent } from './pages/saisie/pages/input-budgetaire/input-budgetaire.component';
 
 
 @NgModule({
@@ -133,6 +135,8 @@ import { ProcedureComponent } from './procedure/procedure.component';
     EtablissementSelectComponent,
     OffcanvasComponent,
     ProcedureComponent,
+    EtablissementComponent,
+    InputBudgetaireComponent,
   ],
   imports: [
     ChartModule,

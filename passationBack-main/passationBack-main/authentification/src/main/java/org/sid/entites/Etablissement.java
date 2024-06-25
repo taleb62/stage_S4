@@ -9,13 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "etablissement")
+
 public class Etablissement {
 
     @Id
@@ -25,6 +30,9 @@ public class Etablissement {
 
     private String nom;
     private String adresse;
+
+   
+
 
     // @OneToMany(mappedBy = "etablissement", cascade = CascadeType.ALL)
     // private List<plan_anuell_achat> paa;

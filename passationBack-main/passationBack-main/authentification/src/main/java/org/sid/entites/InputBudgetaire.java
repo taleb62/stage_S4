@@ -2,12 +2,14 @@ package org.sid.entites;
 
 import javax.persistence.*;
 import lombok.Data;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "input_budgetaire")
-public class InputBudgetaire {
+public class InputBudgetaire implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +27,15 @@ public class InputBudgetaire {
     @Column(name = "created_date", nullable = false)
     private LocalDate createdDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "etablissement_id", nullable = false)
     private Etablissement etablissement;
 
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "type_selection", nullable = false)
     private mod_passation typeSelection;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "type_de_marcher", nullable = false)
     private type_marche typeMarcher;
     // Constructors, getters, and setters

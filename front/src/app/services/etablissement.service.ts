@@ -12,6 +12,8 @@ export class EtablissementService {
 
   constructor(private http: HttpClient) { }
 
+  
+
   getEtablissements(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

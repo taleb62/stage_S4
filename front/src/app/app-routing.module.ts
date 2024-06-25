@@ -11,6 +11,8 @@ import {PaaComponent} from "./pages/saisie/pages/paa/paa/paa.component";
 import {DirectoryComponent} from "./pages/saisie/pages/directory/directory.component";
 import { EtablissemntPaaComponent } from './pages/saisie/pages/etablissemnt-paa/etablissemnt-paa.component';
 import { ProcedureComponent } from './procedure/procedure.component';
+import { EtablissementComponent } from './pages/saisie/pages/etablissement/etablissement.component';
+import { InputBudgetaireComponent } from './pages/saisie/pages/input-budgetaire/input-budgetaire.component';
 
 
 
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: "paa", component: PaaComponent, canActivate: [AuthGuardService] },
   { path: "directory", component: DirectoryComponent, canActivate: [AuthGuardService] },
   { path: "etablissementpaa", component: EtablissemntPaaComponent, canActivate: [AuthGuardService] },
+  { path: "etablissement", component: EtablissementComponent, canActivate: [AuthGuardService] },
+  { path: "input", component: InputBudgetaireComponent, canActivate: [AuthGuardService] },
   { path: 'procedure-list', component: ProcedureComponent, canActivate: [AuthGuardService] },
   {path: '', redirectTo: 'login', pathMatch: 'full',},
 
