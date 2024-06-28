@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.sql.Date;
 
-
 @Service
 public class ReportService {
-
 
     public byte[] generateProcedureReport(ProcedurePaa procedurePaa) throws JRException {
         // Imprimer les valeurs de procedurePaa pour vérifier leur contenu
@@ -22,13 +20,14 @@ public class ReportService {
         System.out.println("ProcedurePaa Destinataire: " + procedurePaa.getDestinataire());
         System.out.println("ProcedurePaa Description: " + procedurePaa.getDescription());
         System.out.println("ProcedurePaa DeadlineEstime: " + procedurePaa.getDeadlineEstime());
-    
+
         // Load the JRXML file
-        JasperReport jasperReport = JasperCompileManager.compileReport("C:\\Users\\lapto\\Desktop\\stage_project\\passationBack-main\\passationBack-main\\authentification\\src\\main\\resources\\demandeIP.jrxml");
-    
+        JasperReport jasperReport = JasperCompileManager.compileReport(
+                "C:\\Users\\lapto\\Desktop\\stage_project_old\\passationBack-main\\passationBack-main\\authentification\\src\\main\\resources\\demandeIP.jrxml");
+
         // Create a JRBeanCollectionDataSource
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(List.of(procedurePaa));
-    
+
         // Set parameters (if any)
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("ProcedureId", procedurePaa.getId());
@@ -36,17 +35,17 @@ public class ReportService {
         parameters.put("destinataire", procedurePaa.getDestinataire());
         parameters.put("description", procedurePaa.getDescription());
         parameters.put("sourceFinanciere", procedurePaa.getSourceFinanciere());
-        parameters.put("deadlineEstime", Date.valueOf(procedurePaa.getDeadlineEstime())); // Convertir LocalDate en java.sql.Date
+        parameters.put("deadlineEstime", Date.valueOf(procedurePaa.getDeadlineEstime())); // Convertir LocalDate en
+                                                                                          // java.sql.Date
         parameters.put("id", procedurePaa.getPaa().getId());
 
         parameters.put("montant", procedurePaa.getMontant());
-    
+
         // Fill the report
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-    
+
         // Export the report to a byte array
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
-    
-    
+
 }

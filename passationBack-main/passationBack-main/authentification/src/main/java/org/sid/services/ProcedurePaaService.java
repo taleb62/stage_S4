@@ -1,4 +1,5 @@
 package org.sid.services;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,9 +28,7 @@ public class ProcedurePaaService {
     private ReportService reportService;
 
     @Autowired
-    private planRepository paaRepository;
-
-    
+    private planRepository plan;
 
     public List<ProcedurePaa> findAll() {
         return repository.findAll();
@@ -47,24 +46,35 @@ public class ProcedurePaaService {
         repository.deleteById(id);
     }
 
-    public ProcedurePaa createProcedure(ProcedurePaa procedurePaa) {
+    public ProcedurePaa createProcedure(ProcedurePaa procedurePaa, MultipartFile file) {
+        plan_anuell_achat paa = plan.findById(procedurePaa.getPaa().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Paa not found"));
+        
+        paa.setMontantRestant(paa.getMntEstimatif()-procedurePaa.getMontant());
         ProcedurePaa savedProcedure = repository.save(procedurePaa);
 
         try {
+            String directoryPath = "C:\\Users\\lapto\\Desktop\\stage_project_old\\uploads\\procedures\\besoins";
+            Path directory = Paths.get(directoryPath);
 
-            // String fileName = file.getOriginalFilename();
-            // Path path = Paths.get("C:\\Users\\lapto\\Desktop\\stage_project\\uploads\\procedures\\besoins" + File.separator + fileName);
-            // Files.copy(file.getInputStream(), path);
+            // Check if the directory exists, if not, create it
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+            }
+
+            String fileName = file.getOriginalFilename();
+            Path filePath = directory.resolve(savedProcedure.getId() + "_" + fileName);
+            Files.copy(file.getInputStream(), filePath);
 
             byte[] report = reportService.generateProcedureReport(savedProcedure);
-            String reportPath = "C:/Users/lapto/Desktop/stage_project/uploads/procedures/report_"
+            String reportPath = "C:\\Users\\lapto\\Desktop\\stage_project_old\\uploads\\procedures\\report_"
                     + savedProcedure.getId() + ".pdf";
             Files.write(Paths.get(reportPath), report);
 
-            // Mettre à jour le champ pathInitialProcedure
             savedProcedure.setPathInitialProcedure(reportPath);
-            // savedProcedure.setPathBesoin(path.toString());
+            savedProcedure.setPathBesoin(filePath.toString());
             repository.save(savedProcedure);
+            plan.save(paa);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -24,7 +24,6 @@ export class EtablissementComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private etablissementService: EtablissementService) {
     this.etablissementForm = this.fb.group({
-      code: ['', Validators.required],
       nom: ['', Validators.required],
       adresse: ['', Validators.required]
     });

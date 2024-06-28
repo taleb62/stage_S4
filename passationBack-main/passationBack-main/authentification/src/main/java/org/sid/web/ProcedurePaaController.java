@@ -38,23 +38,12 @@ public class ProcedurePaaController {
         return procedurePaa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    
+    @PostMapping("")
     public ProcedurePaa create(
-            @RequestBody ProcedurePaa procedureRequest) {
+            @RequestPart("procedure") ProcedurePaa procedureRequest,
+            @RequestPart("file") MultipartFile file) {
 
-        return service.createProcedure(procedureRequest);
-       
-    //    return service.createProcedure(
-    //     paaid,
-    //     procedureRequest.getOrigin(),
-    //     procedureRequest.getDestinataire(),
-    //     procedureRequest.getSourceFinanciere(),
-    //     procedureRequest.getDescription(),
-    //     procedureRequest.getDeadlineEstime(),
-    //     procedureRequest.getMontant());
-        
-
+        return service.createProcedure(procedureRequest, file);
     }
 
     @PutMapping("/{id}")

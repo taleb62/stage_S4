@@ -16,10 +16,6 @@ export class EtablissementService {
     return this.http.get<any[]>(this.apiUrl, { headers });
   }
 
-<<<<<<< HEAD
-  
-
-=======
   addEtablissement(etablissement: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -37,5 +33,4 @@ export class EtablissementService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
->>>>>>> b40cbddf2a78569cc471baf24aa952e82c1a00e7
 }
