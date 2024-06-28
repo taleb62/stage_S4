@@ -16,6 +16,7 @@ import { OffcanvasComponent } from 'src/app/components/offcanvas/offcanvas.compo
 import { EtablissementSelectComponent } from '../../etablissement-select/etablissement-select.component';
 import { EtablissementService } from 'src/app/services/etablissement.service';
 import { SERVER_URL_BE } from 'src/environments/environment';
+import { rangeValidator } from 'src/app/validateurs/rangeValidator';
 @Component({
   selector: 'app-paa',
   templateUrl: './paa.component.html',
@@ -83,12 +84,13 @@ export class PaaComponent implements OnInit {
     this.pageSettings = { pageSize: 10 };
     this.myDateYear = this.datePipe.transform(this.myDateYear, 'yyyy');
     this.newRowForm = this.fb.group({
-      inpuBudgetaire: [this.paaId, Validators.required],
-      mntEstimatif: ['', Validators.required],
+      inpuBudgetaire: ["", Validators.required],
+      mntEstimatif: ['', [Validators.required, rangeValidator(100000, 400000)]],
       objetDepense: ['', Validators.required],
       datePreviLancement: ['', Validators.required],
       datePreviAttribution: ['', Validators.required]
     });
+
     this.modifierForm = this.fb.group({
       id: ['', Validators.required],
       inpuBudgetaire: ['', Validators.required],

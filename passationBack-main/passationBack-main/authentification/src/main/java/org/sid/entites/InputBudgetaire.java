@@ -41,9 +41,9 @@ public class InputBudgetaire implements Serializable {
     // Constructors, getters, and setters
     public InputBudgetaire() {
     }
+    
     public InputBudgetaire( String budgetNumber, int year, int uniqueId, LocalDate createdDate,
             Etablissement etablissement, mod_passation typeSelection, type_marche typeMarcher) {
-        this.id = id;
         this.budgetNumber = budgetNumber;
         this.year = year;
         this.uniqueId = uniqueId;

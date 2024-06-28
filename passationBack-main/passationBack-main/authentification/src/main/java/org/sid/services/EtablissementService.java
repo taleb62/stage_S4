@@ -19,15 +19,23 @@ public class EtablissementService {
         return repository.findAll();
     }
 
+
+
     public Optional<Etablissement> findById(Integer id) {
         return repository.findById(id);
     }
+
+    
 
     public Etablissement save(Etablissement etablissement) {
         return repository.save(etablissement);
     }
 
+
+
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
+
+
 }

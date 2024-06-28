@@ -57,6 +57,11 @@
                 <div class="col-md-2">
                   <input formControlName="mntEstimatif" type="text" class="form-control text-center form-control-xs form-control-sm"
                     placeholder="Montant">
+                    <div *ngIf="newRowForm.get('mntEstimatif').touched && newRowForm.get('mntEstimatif').dirty && newRowForm.get('mntEstimatif').errors">
+                      <small style="color: red;" *ngIf="newRowForm.get('mntEstimatif').errors">
+                        Le montant  doit être entre 100000 et 400000.
+                      </small>
+                    </div>
                 </div>
                 
                 <div class="col-md-2">
@@ -549,16 +554,22 @@
                   {{ data.id }}
                 </ng-template>
               </e-column>
-              <e-column field="inpuBudgetaire" headerText="Imputation" textAlign="Center" width="100">
+              <e-column field="inpuBudgetaire" headerText="Inputation" textAlign="Center" width="100">
                 <ng-template #template let-data>
                   {{ data.inpuBudgetaire }}
                 </ng-template>
               </e-column>
-              <e-column field="mntEstimatif" headerText="Montant" textAlign="Center" width="100">
+              <e-column field="typeMarche" headerText="Type de contrat" textAlign="Center" width="100">
                 <ng-template #template let-data>
-                  {{ data.montantRestant }} MRU
+                  {{ data.typeMarche.typeMarche }}
                 </ng-template>
               </e-column>
+              <e-column field="modPassation" headerText="Type de selection" textAlign="Center" width="100">
+                <ng-template #template let-data>
+                  {{ data.modPassation.modePassation }}
+                </ng-template>
+              </e-column>
+              
               <e-column field="objetDepense" headerText="Objet Depense" textAlign="Center" width="120">
                 <ng-template #template let-data>
                   {{ data.objetDepense }}

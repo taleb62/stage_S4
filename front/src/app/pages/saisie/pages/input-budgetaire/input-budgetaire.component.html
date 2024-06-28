@@ -98,7 +98,7 @@
               </button>
             </div>
             <div class="col-auto">
-              <button *ngIf="inputSelected" (click)="deleteInput()" class="btn btn-sm btn-outline-primary">
+              <button *ngIf="inputSelected" class="btn btn-sm btn-outline-primary">
                 Modifier
               </button>
             </div>
@@ -114,13 +114,13 @@
               id="gridcomp"
               allowSorting="true"
               [allowPaging]="true"
-              height="350"
+              height="450"
               gridLines="Both"
               [pageSettings]="pageSettings"
             >
               <e-columns>
                 <e-column field="Inputation" headerText="Inputation" textAlign="Center" width="150">
-                  <ng-template #template let-data>
+                  <ng-template #template let-data let-i="rowIndex">
                     <div class="d-flex justify-content-center align-items-center">
                       <span>{{ data.budgetNumber }}</span>
                       <span (click)="copyToClipboard(data.budgetNumber, i, 'budgetNumber')" class="btn btn-link btn-sm ml-2">

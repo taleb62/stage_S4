@@ -20,4 +20,6 @@ export class EtablissementService {
     return this.http.get(SERVER_URL_BE + this.apiUrl, { headers });
   }
 
+  
+
 }

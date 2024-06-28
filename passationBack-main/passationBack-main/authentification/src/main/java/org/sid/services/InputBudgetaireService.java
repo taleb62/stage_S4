@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InputBudgetaireService {
@@ -57,7 +58,10 @@ public class InputBudgetaireService {
         public List<InputBudgetaire> getInputs() {
                 return inputBudgetaireRepository.findAll();
         }
+
         public void deleteInput(Long id) {
-                 inputBudgetaireRepository.deleteById(id);
+                Optional<InputBudgetaire> input = inputBudgetaireRepository.findById(id);
+                
+                inputBudgetaireRepository.deleteById(id);
         }
 }

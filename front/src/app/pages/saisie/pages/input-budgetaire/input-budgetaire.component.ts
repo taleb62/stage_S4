@@ -5,6 +5,7 @@ import { GridComponent, RowDeselectEventArgs, RowSelectEventArgs } from '@syncfu
 import { DialogComponent, PositionDataModel } from '@syncfusion/ej2-angular-popups';
 import { EtablissementService } from 'src/app/services/etablissement.service';
 import { InputBudgetaireService } from 'src/app/services/input-budgetaire.service';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-input-budgetaire',
@@ -70,6 +71,7 @@ export class InputBudgetaireComponent implements OnInit {
       this.http.post('http://localhost:8089/api/rest/input', body.toString(), {
         headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', `Bearer ${token}`)
       }).subscribe(response => {
+        this.validerFormDeclanchement.reset();
         this.ejDialog.hide();
 
         this.getInputs();
@@ -185,6 +187,15 @@ export class InputBudgetaireComponent implements OnInit {
       default:
         break;
     }
+
+    // Swal.fire({
+    //   title: 'Copié!',
+    //   text: 'Le texte a été copié dans le presse-papiers.',
+    //   icon: 'success',
+    //   timer: 2000,
+    //   showConfirmButton: false
+    // });
+
 
     // Réinitialise le texte après quelques secondes
     setTimeout(() => {

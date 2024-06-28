@@ -111,6 +111,7 @@ public class PaaServiceImpl implements PaaService {
             newPaa.setInpuBudgetaire(data.getInpuBudgetaire());
             newPaa.setFkidTypeMarche(inputBudgetaire.getTypeMarcher().getId());
             newPaa.setFkidModPassation(inputBudgetaire.getTypeSelection().getId());
+            newPaa.setEtablissement(inputBudgetaire.getEtablissement());
             newPaa.setMntEstimatif(data.getMntEstimatif());
             newPaa.setDatePreviLancement(data.getDatePreviLancement());
             newPaa.setDatePreviAttribution(data.getDatePreviAttribution());
