@@ -1,6 +1,5 @@
 package org.sid.services;
 
-
 import org.sid.dao.EtablissementRepository;
 import org.sid.entites.Etablissement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,9 @@ public class EtablissementService {
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }
-
-
+    
+    // Méthode pour mettre à jour un établissement
+    public Etablissement update(Etablissement etablissement) {
+        return repository.save(etablissement);
+    }
 }

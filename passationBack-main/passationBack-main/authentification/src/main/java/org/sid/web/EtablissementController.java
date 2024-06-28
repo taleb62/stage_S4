@@ -39,8 +39,8 @@ public class EtablissementController {
         if (!service.findById(id).isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        etablissement.setId(id);
-        return ResponseEntity.ok(service.save(etablissement));
+        etablissement.setId(id); // Assuming the entity has a setId method
+        return ResponseEntity.ok(service.update(etablissement));
     }
 
     @DeleteMapping("/{id}")

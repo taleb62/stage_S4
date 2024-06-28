@@ -31,7 +31,6 @@ export class InputBudgetaireComponent implements OnInit {
   selectedItem: any;
   copiedBudgetNumber: boolean[] = [];
 
-
   years: number[] = [];
   selectedYear: number;
 
@@ -87,7 +86,6 @@ export class InputBudgetaireComponent implements OnInit {
 
   onSelect(item: any): void {
     // Logique pour gérer la sélection des éléments
-    
   }
 
   rowSelected(args: RowSelectEventArgs): void {
@@ -98,14 +96,13 @@ export class InputBudgetaireComponent implements OnInit {
   rowDeselected($event: RowDeselectEventArgs): void {
     this.inputSelected = null;
   }
+
   deleteInput(): void {
     if (this.inputSelected && this.inputSelected.id) {
       const token = localStorage.getItem('token');
-
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
       const id = this.inputSelected.id;
-      this.http.delete(`http://localhost:8089/api/rest/input/${id}`,{headers}).subscribe(response => {
+      this.http.delete(`http://localhost:8089/api/rest/input/${id}`, { headers }).subscribe(response => {
         console.log('Donnée supprimée avec succès', response);
         this.getInputs();  // Rafraîchir les données après suppression
         this.inputSelected = null; // Réinitialiser la sélection
@@ -115,10 +112,19 @@ export class InputBudgetaireComponent implements OnInit {
     }
   }
 
+  editInput(): void {
+    if (this.inputSelected) {
+      this.isVisible = true;
+      this.validerFormDeclanchement.patchValue(this.inputSelected);
+      this.ejDialog.show();
+    }
+  }
+
   getInputs(): void {
     this.input.getInputs().subscribe({
       next: (value) => {
         this.data = value;
+        this.copiedBudgetNumber = new Array(this.data.length).fill(false);
         console.log(value);
       }
     });

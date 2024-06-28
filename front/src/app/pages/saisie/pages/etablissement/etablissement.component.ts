@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GridComponent, RowDeselectEventArgs, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EtablissementService } from 'src/app/services/etablissement.service';
+import { DialogComponent, PositionDataModel } from '@syncfusion/ej2-angular-popups';
+import { GridComponent, RowDeselectEventArgs, RowSelectEventArgs } from '@syncfusion/ej2-angular-grids';
 
 @Component({
   selector: 'app-etablissement',
@@ -8,45 +10,97 @@ import { EtablissementService } from 'src/app/services/etablissement.service';
   styleUrls: ['./etablissement.component.scss']
 })
 export class EtablissementComponent implements OnInit {
+  etablissementForm: FormGroup;
+  etablissements = [];
+  selectedEtablissement: any;
+  isModalVisible = false;
+  isEditMode = false;
+  positionModal: PositionDataModel = { X: 'center', Y: 'center' };
+  targetElement: HTMLElement;
+  pageSettings: Object = { pageSize: 10 };
 
-  selected: Object[] = null;
-  public pageSettings: Object;
-
+  @ViewChild('ejDialog') ejDialog: DialogComponent;
   @ViewChild('grid') public grid: GridComponent;
 
-  constructor(private etablisement: EtablissementService) {
-    this.pageSettings = { pageSize: 10 };
-
+  constructor(private fb: FormBuilder, private etablissementService: EtablissementService) {
+    this.etablissementForm = this.fb.group({
+      code: ['', Validators.required],
+      nom: ['', Validators.required],
+      adresse: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
+    this.loadEtablissements();
+    this.initilaizeTarget();
   }
 
+  loadEtablissements(): void {
+    this.etablissementService.getEtablissements().subscribe(data => {
+      this.etablissements = data;
+    });
+  }
 
+  openAddModal(): void {
+    this.isModalVisible = true;
+    this.isEditMode = false;
+    this.etablissementForm.reset();
+    this.ejDialog.show();
+  }
 
+  editEtablissement(): void {
+    if (this.selectedEtablissement) {
+      this.isModalVisible = true;
+      this.isEditMode = true;
+      this.etablissementForm.patchValue(this.selectedEtablissement);
+      this.ejDialog.show();
+    }
+  }
 
-  // etablissements(): any{
-  //   this.etablisement.getEtablissements().subscribe({
-  //     next: (value)=>{
-  //       console.log("les etablissemnts : "+value);
-        
-  //     }
-  //   });
-  // }
+  onSubmit(): void {
+    if (this.etablissementForm.valid) {
+      if (this.isEditMode) {
+        const updatedEtablissement = { ...this.selectedEtablissement, ...this.etablissementForm.value };
+        this.etablissementService.updateEtablissement(updatedEtablissement).subscribe(
+          () => {
+            this.loadEtablissements();
+            this.ejDialog.hide();
+          },
+          error => console.error(error)
+        );
+      } else {
+        this.etablissementService.addEtablissement(this.etablissementForm.value).subscribe(
+          () => {
+            this.loadEtablissements();
+            this.ejDialog.hide();
+          },
+          error => console.error(error)
+        );
+      }
+      this.isModalVisible = false;
+      this.etablissementForm.reset();
+    }
+  }
 
-  // rowSelected(args: RowSelectEventArgs) {
-  //   console.log(this.grid.getSelectedRecords())
-  //   this.selected = this.grid.getSelectedRecords();
-  //   // console.log("le paa : " + this.selected[0]["id"]);
-  //   // this.paaId = this.selected[0]["id"];
+  rowSelected(args: RowSelectEventArgs): void {
+    this.selectedEtablissement = this.grid.getSelectedRecords()[0];
+  }
 
-  // }
+  rowDeselected($event: RowDeselectEventArgs): void {
+    this.selectedEtablissement = null;
+  }
 
-  // rowDeselected($event: RowDeselectEventArgs) {
-  //   this.selected = null;
-  //   // console.log(this.selected)
-  // }
+  deleteEtablissement(): void {
+    if (this.selectedEtablissement) {
+      this.etablissementService.deleteEtablissement(this.selectedEtablissement.id).subscribe(
+        () => this.loadEtablissements(),
+        error => console.error(error)
+      );
+      this.selectedEtablissement = null;
+    }
+  }
 
-
-
+  initilaizeTarget(): void {
+    this.targetElement = document.body;
+  }
 }
