@@ -52,7 +52,6 @@ public class ProcedurePaaService {
         
         paa.setMontantRestant(paa.getMntEstimatif()-procedurePaa.getMontant());
         ProcedurePaa savedProcedure = repository.save(procedurePaa);
-
         try {
             String directoryPath = "C:\\Users\\lapto\\Desktop\\stage_project_old\\uploads\\procedures\\besoins";
             Path directory = Paths.get(directoryPath);
