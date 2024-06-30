@@ -11,7 +11,8 @@ import {genEnp,host2} from "../../environments/environment-local";
 })
 export class AuthenticationService implements OnInit {
   host2:string="http://localhost:8089";
-  jwt:any;
+  jwt: any;
+  userId: any;
   username:any;
   roles:any;
   redirectUrl='localhost:4200/#/login';
@@ -69,7 +70,8 @@ export class AuthenticationService implements OnInit {
   parseJWT(){
     let jwtHelper = new JwtHelperService();
     
-    let objJWT =jwtHelper.decodeToken(this.jwt);
+    let objJWT = jwtHelper.decodeToken(this.jwt);
+    this.userId = objJWT.id;
     this.username=objJWT.obj;
     this.roles=objJWT.roles;
     this.exp = objJWT.exp;

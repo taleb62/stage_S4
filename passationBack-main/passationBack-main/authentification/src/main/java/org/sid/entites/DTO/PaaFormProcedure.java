@@ -3,6 +3,8 @@ package org.sid.entites.DTO;
 import java.sql.Timestamp; // Ajout de l'import
 import java.time.LocalDate; // Ajout de l'import
 
+import org.sid.entites.AppUser;
+
 import lombok.Data;
 
 @Data
@@ -20,6 +22,7 @@ class PaaFormProcedure{
     private Timestamp dateCrationProcedure;
     private String origine;
     private String destinataire;
+    private Integer userId;
 
     public void setMntEstimatif(Double mntEstimatif) {
         this.mntEstimatif = mntEstimatif;

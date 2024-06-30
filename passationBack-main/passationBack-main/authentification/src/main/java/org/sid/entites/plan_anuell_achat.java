@@ -51,22 +51,25 @@ public class plan_anuell_achat implements Serializable {
         @JoinColumns({ @JoinColumn(name = "fkidModPassation", referencedColumnName = "id", nullable = false, updatable = false, insertable = false) })
         private mod_passation modPassation;
 
+        // @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+        // @JoinColumns({
+        // @JoinColumn(name = "idElm", referencedColumnName = "id")
 
+        // })
+        // private List<FileDB> fileDB;
 
-        @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        @JoinColumns({
-                        @JoinColumn(name = "idElm", referencedColumnName = "id")
-
-        })
-        private List<FileDB> fileDB;
-
-        // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "paa")
+        // @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy =
+        // "paa")
 
         // private List<ProcedurePaa> procedures;
 
         @ManyToOne
         @JoinColumn(name = "etablissement_id")
         private Etablissement etablissement;
+
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private AppUser user;
 
         public void setMontantRestant(Double montantRestant) {
                 this.montantRestant = montantRestant;

@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+
 @Entity
 @Table(name = "DOSSIER")
 @Data
@@ -18,14 +19,23 @@ public class Dossier implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String reference;
-    private Integer idPaa;
-    private int fkIduser;
-    private boolean LettreCree = false;
-    private boolean ouvert=true;
 
-    public Dossier(String reference, Integer idPaa,int fkIduser) {
-        this.reference=reference;
-        this.idPaa=idPaa;
-        this.fkIduser=fkIduser;
-    }
+    private boolean LettreCree = false; // Correct field name (if it should be lowercase, update it)
+    private boolean ouvert = true;
+
+    @ManyToOne
+    @JoinColumn(name = "idPaa", insertable=false ,updatable=false)
+    private plan_anuell_achat paa;
+
+    @ManyToOne
+    @JoinColumn(name = "procedure_id", insertable=false ,updatable=false)
+    private ProcedurePaa procedurePaa;
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable=false ,updatable=false)
+    private ProcedurePaa user;
+
+
+
+    
+
 }
