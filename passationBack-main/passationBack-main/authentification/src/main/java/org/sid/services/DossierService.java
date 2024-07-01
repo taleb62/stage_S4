@@ -27,37 +27,35 @@ public class DossierService {
     @Autowired
     private planRepository planRepository;
 
-    public List<DossierFileDTO> getAllDossier() {
-        return dossierRepository.getDossiers();
+    public List<Dossier> getAllDossier() {
+        return dossierRepository.findAll();
     }
 
-    public List<Lettre> getAllLettres(Integer id) {
-        return dossierRepository.getLettres(id);
+    // public List<Lettre> getAllLettres(Integer id) {
+    //     return dossierRepository.getLettres(id);
+    // }
+
+    // public List<Lettre> LettresNotInPlis(Integer id) {
+    //     return dossierRepository.LettresNotInPlis(id);
+    // }
+
+    public Dossier createDosssier(Dossier data) throws IOException {
+        Dossier dossier = dossierRepository.save(data);
+        return dossier;
     }
 
-    public List<Lettre> LettresNotInPlis(Integer id) {
-        return dossierRepository.LettresNotInPlis(id);
-    }
-
-    public Dossier createDosssier(DossierDTO data) throws IOException {
-        Dossier dossier = new Dossier(data.getReference(), data.getIdPaa(), data.getFkIduser());
-        Dossier dossier1 = dossierRepository.save(dossier);
-        updatePaaDossier(data.getIdPaa());
-        return dossier1;
-    }
-
-    public List<Lettre> createLettre(LettreDTO data) throws IOException {
-        List<Lettre> lisLettres = new ArrayList<>();
-        data.getNomFournissuer().forEach(foun -> {
-            Lettre lettre = new Lettre(foun.toString(), data.getNonAutoriteContractante(),
-                    data.getDateLimiteDepot(), data.getDateOverturePlis(), data.getDateAnterieurDepot(),
-                    data.getLieuOverturePlis(), data.getIdDossier(), data.getFkIduser());
-            lisLettres.add(lettre);
-        });
-        List<Lettre> Listlettres = lettreRepository.saveAll(lisLettres);
-        updateDossier(data.getIdDossier());
-        return Listlettres;
-    }
+    // public List<Lettre> createLettre(LettreDTO data) throws IOException {
+    //     List<Lettre> lisLettres = new ArrayList<>();
+    //     data.getNomFournissuer().forEach(foun -> {
+    //         Lettre lettre = new Lettre(foun.toString(), data.getNonAutoriteContractante(),
+    //                 data.getDateLimiteDepot(), data.getDateOverturePlis(), data.getDateAnterieurDepot(),
+    //                 data.getLieuOverturePlis(), data.getIdDossier(), data.getFkIduser());
+    //         lisLettres.add(lettre);
+    //     });
+    //     List<Lettre> Listlettres = lettreRepository.saveAll(lisLettres);
+    //     updateDossier(data.getIdDossier());
+    //     return Listlettres;
+    // }
 
     public plan_anuell_achat updatePaaDossier(Integer id) {
         plan_anuell_achat paa = planRepository.getPaa(id);
@@ -68,22 +66,22 @@ public class DossierService {
         return paa1;
     }
 
-    public Dossier updateDossier(Integer id) {
-        Dossier dossier = dossierRepository.getDossier(id);
-        if (dossier == null)
-            throw new RuntimeException("le Dossier non trouvé !");
-        dossierRepository.updateDossier(!dossier.isLettreCree(), id);
-        Dossier dossier1 = dossierRepository.getDossier(id);
-        return dossier1;
-    }
+    // public Dossier updateDossier(Integer id) {
+    //     Dossier dossier = dossierRepository.getDossier(id);
+    //     if (dossier == null)
+    //         throw new RuntimeException("le Dossier non trouvé !");
+    //     dossierRepository.updateDossier(!dossier.isLettreCree(), id);
+    //     Dossier dossier1 = dossierRepository.getDossier(id);
+    //     return dossier1;
+    // }
 
-    public Dossier updateEtat(Integer id) {
-        Dossier dossier = dossierRepository.getDossier(id);
-        if (dossier == null)
-            throw new RuntimeException("le Dossier non trouvé !");
-        dossierRepository.updateEtat(!dossier.isOuvert(),id);
+    // public Dossier updateEtat(Integer id) {
+    //     Dossier dossier = dossierRepository.getDossier(id);
+    //     if (dossier == null)
+    //         throw new RuntimeException("le Dossier non trouvé !");
+    //     dossierRepository.updateEtat(!dossier.isOuvert(),id);
 
-        Dossier dossier1 = dossierRepository.getDossier(id);
-        return dossier1;
-    }
+    //     Dossier dossier1 = dossierRepository.getDossier(id);
+    //     return dossier1;
+    // }
 }

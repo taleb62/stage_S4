@@ -34,51 +34,51 @@ public class DossierController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/getAllDossier")
-    public List<DossierFileDTO> getAllDossier() {
+    public List<Dossier> getAllDossier() {
         return dossierService.getAllDossier();
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/getLettres/{id}")
-    public List<Lettre> getLettres(@PathVariable Integer id) {
-        return dossierService.getAllLettres(id);
-    }
+    // @CrossOrigin(origins = "*")
+    // @GetMapping("/getLettres/{id}")
+    // public List<Lettre> getLettres(@PathVariable Integer id) {
+    //     return dossierService.getAllLettres(id);
+    // }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/LettresNotInPlis/{id}")
-    public List<Lettre> LettresNotInPlis(@PathVariable Integer id) {
-        return dossierService.LettresNotInPlis(id);
-    }
+    // @CrossOrigin(origins = "*")
+    // @GetMapping("/LettresNotInPlis/{id}")
+    // public List<Lettre> LettresNotInPlis(@PathVariable Integer id) {
+    //     return dossierService.LettresNotInPlis(id);
+    // }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/create")
-    public Dossier createDosssier(@RequestBody DossierDTO data) throws IOException {
+    public Dossier createDosssier(@RequestBody Dossier data) throws IOException {
         System.out.println("**********************************" + data);
         return dossierService.createDosssier(data);
     }
 
-    @CrossOrigin(origins = "*")
-    @PostMapping("/createLettre")
-    public List<Lettre> createLettre(@RequestBody LettreDTO data) throws IOException {
-        System.out.println("**********************************" + data);
-        return dossierService.createLettre(data);
-    }
+    // @CrossOrigin(origins = "*")
+    // @PostMapping("/createLettre")
+    // public List<Lettre> createLettre(@RequestBody LettreDTO data) throws IOException {
+    //     System.out.println("**********************************" + data);
+    //     return dossierService.createLettre(data);
+    // }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/report/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity generateReport(@PathVariable Integer id, @RequestParam("report-name") String reportName)
-            throws IOException, JRException {
-        return report.exportReportLettre(id, reportName);
-    }
+    // @CrossOrigin(origins = "*")
+    // @GetMapping(value = "/report/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+    // public ResponseEntity generateReport(@PathVariable Integer id, @RequestParam("report-name") String reportName)
+    //         throws IOException, JRException {
+    //     return report.exportReportLettre(id, reportName);
+    // }
 
-    @PutMapping("/{id}")
-    public Dossier updateEtat(@PathVariable Integer id) {
-        // TODO: process POST request
+    // @PutMapping("/{id}")
+    // public Dossier updateEtat(@PathVariable Integer id) {
+    //     // TODO: process POST request
 
         
 
-        return dossierService.updateEtat(id);
+    //     return dossierService.updateEtat(id);
 
-    }
+    // }
 
 }

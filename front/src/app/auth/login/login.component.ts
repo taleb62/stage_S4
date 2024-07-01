@@ -177,7 +177,7 @@ export class LoginComponent implements OnInit {
             this.usernamecnx = data.username;
             let jwtHelper = new JwtHelperService();
             let objJWT = jwtHelper.decodeToken(jwt);
-            console.log(objJWT);
+            console.log("le toddddd :"+objJWT.sub);
 
             if (objJWT.roles.length > 1) {
               // this.modalService.show(temp, Object.assign({}, {
@@ -191,6 +191,7 @@ export class LoginComponent implements OnInit {
                this.authService.saveToken(jwt);
               //console.log(objJWT.roles[0]);
               localStorage.setItem('profilSelection', this.profilSelection)
+              
               this.isAuthLoading = false;
               this.router.navigate(['/Accueil'])
                 // .then(() => {

@@ -6,6 +6,11 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sid.dao.AppUserRepository;
+import org.sid.dao.InputBudgetaireRepository;
+import org.sid.dao.planRepository;
+import org.sid.entites.AppUser;
+import org.sid.entites.InputBudgetaire;
 import org.sid.entites.plan_anuell_achat;
 import org.sid.entites.DTO.PaaFormProcedure;
 import org.sid.services.PaaService;
@@ -45,6 +50,15 @@ public class PaaController {
     PaaServiceImpl service;
 
     @Autowired
+    private InputBudgetaireRepository input;
+
+    @Autowired
+    AppUserRepository userRepo;
+
+    @Autowired
+    private planRepository repo;
+
+    @Autowired
     ServiceReport report;
 
     @CrossOrigin(origins = "*")
@@ -52,6 +66,7 @@ public class PaaController {
     public List<plan_anuell_achat> getAllPaaa() {
         return service.getAllPaa();
     }
+
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/getPaaa/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<plan_anuell_achat> getPaaa(@PathVariable Integer id) {
@@ -84,10 +99,10 @@ public class PaaController {
         return "hello";
     }
 
-    @GetMapping("/listPaa")
-    public ArrayNode getListDocs() {
-        return service.getListPaa();
-    }
+    // @GetMapping("/listPaa")
+    // public ArrayNode getListDocs() {
+    // return service.getListPaa();
+    // }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/updatePaa")
@@ -95,9 +110,10 @@ public class PaaController {
         System.out.println("**********************************" + data);
         return paaService.updatePaa(data.getId(), data.getOrigine(), data.getDestinataire());
     }
+
     @CrossOrigin(origins = "*")
     @PutMapping("/modifier/{id}")
-    public plan_anuell_achat modifierPaa(@PathVariable Integer id,@RequestBody PaaFormProcedure data) {
+    public plan_anuell_achat modifierPaa(@PathVariable Integer id, @RequestBody PaaFormProcedure data) {
         System.out.println("**********************************" + data);
         return service.modifierPaa(id, data);
     }
@@ -110,9 +126,32 @@ public class PaaController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/addPaa")
-    public ResponseEntity<plan_anuell_achat> addPaa(@RequestBody PaaFormProcedure data) {
-        plan_anuell_achat newPaa = paaService.addPaa(data);
-        return ResponseEntity.ok(newPaa);
+    public plan_anuell_achat addPaa(@RequestBody PaaFormProcedure data) {
+        // plan_anuell_achat newPaa = paaService.addPaa(data);
+        // return ResponseEntity.ok(newPaa);
+
+        InputBudgetaire inputBudgetaire = input.findByBudgetNumber(data.getInpuBudgetaire());
+
+        // AppUser user = userRepo.getUser(data.getUserId());
+
+        if (inputBudgetaire != null) {
+
+            plan_anuell_achat newPaa = new plan_anuell_achat();
+            newPaa.setObjetDepense(data.getObjetDepense());
+            newPaa.setInpuBudgetaire(data.getInpuBudgetaire());
+            newPaa.setFkidTypeMarche(inputBudgetaire.getTypeMarcher().getId());
+            newPaa.setFkidModPassation(inputBudgetaire.getTypeSelection().getId());
+            newPaa.setEtablissement(inputBudgetaire.getEtablissement());
+            newPaa.setMntEstimatif(data.getMntEstimatif());
+            newPaa.setDatePreviLancement(data.getDatePreviLancement());
+            newPaa.setDatePreviAttribution(data.getDatePreviAttribution());
+            newPaa.setMontantRestant(data.getMntEstimatif());
+            // newPaa.setUser(user);
+            return repo.save(newPaa);
+        }
+        return null;
+
+        // return userRepo.getUser(data.getUserId());
     }
 
     @PutMapping("valider/{id}")
